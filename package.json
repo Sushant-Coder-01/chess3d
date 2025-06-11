@@ -1,0 +1,28 @@
+{
+  "name": "chess3d",
+  "version": "1.0.0",
+  "description": "A 3D chess game built with Three.js.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sushant-Coder-01/chess3d.git"
+  },
+  "keywords": [
+    "three.js",
+    "javascript",
+    "react-3-fiber"
+  ],
+  "author": "Sushant Mangore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sushant-Coder-01/chess3d/issues"
+  },
+  "homepage": "https://github.com/Sushant-Coder-01/chess3d#readme",
+  "dependencies": {
+    "vite": "^6.3.5"
+  }
+}
