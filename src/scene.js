@@ -14,6 +14,7 @@ const camera = new THREE.PerspectiveCamera(
   0.01,
   1000
 );
+
 camera.position.set(0, 5, 10);
 scene.add(camera);
 
@@ -30,4 +31,4 @@ window.addEventListener("resize", () => {
   renderer.setSize(sizes.width, sizes.height);
 });
 
-export { scene, camera, renderer, canvas };
+export { scene, camera, renderer, canvas, sizes };
