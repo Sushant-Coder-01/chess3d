@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pawn Chess Piece
+* source:	https://sketchfab.com/3d-models/pawn-chess-piece-4d051c8e55574962a533b39955579183
+* author:	ranya123 (https://sketchfab.com/ranya123)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pawn Chess Piece" (https://sketchfab.com/3d-models/pawn-chess-piece-4d051c8e55574962a533b39955579183) by ranya123 (https://sketchfab.com/ranya123) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

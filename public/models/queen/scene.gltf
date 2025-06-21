@@ -1,0 +1,404 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 8121,
+      "max": [
+        1.6919001340866089,
+        2.2047977447509766,
+        1.6919001340866089
+      ],
+      "min": [
+        -1.6919001340866089,
+        0.0,
+        -1.6919002532958984
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 97452,
+      "componentType": 5126,
+      "count": 8121,
+      "max": [
+        0.9999809265136719,
+        0.7434325218200684,
+        0.9999809265136719
+      ],
+      "min": [
+        -0.9999809265136719,
+        -1.0,
+        -0.9999809265136719
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 8121,
+      "max": [
+        0.0,
+        1.0
+      ],
+      "min": [
+        0.0,
+        1.0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 48480,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 194904,
+      "componentType": 5126,
+      "count": 386,
+      "max": [
+        1.1399394273757935,
+        0.8125405311584473,
+        1.1524081230163574
+      ],
+      "min": [
+        -1.164876937866211,
+        -0.9699574112892151,
+        -1.1524081230163574
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 199536,
+      "componentType": 5126,
+      "count": 386,
+      "max": [
+        0.9998156428337097,
+        1.0,
+        0.9999998807907104
+      ],
+      "min": [
+        -0.9998343586921692,
+        -1.0,
+        -0.9999998807907104
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 193920,
+      "componentType": 5125,
+      "count": 2304,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 204168,
+      "componentType": 5126,
+      "count": 11777,
+      "max": [
+        0.4215496778488159,
+        1.4455971717834473,
+        0.4215497076511383
+      ],
+      "min": [
+        -0.4215497076511383,
+        0.0,
+        -0.4215496778488159
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 345492,
+      "componentType": 5126,
+      "count": 11777,
+      "max": [
+        0.9999885559082031,
+        1.0,
+        0.9999885559082031
+      ],
+      "min": [
+        -0.9999885559082031,
+        -0.9999548196792603,
+        -0.9999885559082031
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 203136,
+      "componentType": 5125,
+      "count": 70464,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "LukeModels75 (https://sketchfab.com/lucasgamerbdf)",
+      "license": "CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)",
+      "source": "https://sketchfab.com/3d-models/elegant-chess-queen-3d-model-87edddd9de144567a4ccf7711a6b0c14",
+      "title": "Elegant Chess Queen 3D Model"
+    },
+    "generator": "Sketchfab-16.29.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 484992,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 64968,
+      "byteOffset": 484992,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 486816,
+      "byteOffset": 549960,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 1036776,
+      "uri": "scene.bin"
+    }
+  ],
+  "extensionsUsed": [
+    "KHR_materials_specular"
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularColorFactor": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "specularFactor": 1.0
+        }
+      },
+      "name": "Material.003",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.68087,
+          0.717367,
+          0.717367,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.13257183259987076
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Object_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Object_1",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4
+          },
+          "indices": 6,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Object_2",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 8,
+            "POSITION": 7
+          },
+          "indices": 9,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "root"
+    },
+    {
+      "children": [
+        3,
+        5,
+        7
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "GLTF_SceneRootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        0.15290740132331848,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.15290740132331848,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.15290740132331848,
+        0.0,
+        -3.9971821308135986,
+        1.449083685874939,
+        3.217684507369995,
+        1.0
+      ],
+      "name": "Circle_0"
+    },
+    {
+      "mesh": 0,
+      "name": "Object_4"
+    },
+    {
+      "children": [
+        6
+      ],
+      "matrix": [
+        0.062015216797590256,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.062015216797590256,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.062015216797590256,
+        0.0,
+        -3.9971821308135986,
+        1.8472193479537964,
+        3.217684507369995,
+        1.0
+      ],
+      "name": "Roundcube_1"
+    },
+    {
+      "mesh": 1,
+      "name": "Object_6"
+    },
+    {
+      "children": [
+        8
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -3.9948949813842773,
+        0.0036967992782592773,
+        3.217684507369995,
+        1.0
+      ],
+      "name": "Vert.001_2"
+    },
+    {
+      "mesh": 2,
+      "name": "Object_8"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}

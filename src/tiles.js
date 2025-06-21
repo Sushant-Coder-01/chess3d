@@ -69,6 +69,6 @@ function highlightTile(tile) {
 
   // Save original color and highlight
   tile.originalColor = tile.material.color.getHex();
-  tile.material.color.set("#00CFFF"); // cyan
+  tile.material.color.set("#E99F51"); // cyan
   lastHighlighted = tile;
 }

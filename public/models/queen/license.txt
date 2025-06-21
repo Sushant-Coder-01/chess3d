@@ -1,0 +1,11 @@
+Model Information:
+* title:	Elegant Chess Queen 3D Model
+* source:	https://sketchfab.com/3d-models/elegant-chess-queen-3d-model-87edddd9de144567a4ccf7711a6b0c14
+* author:	LukeModels75 (https://sketchfab.com/lucasgamerbdf)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Elegant Chess Queen 3D Model" (https://sketchfab.com/3d-models/elegant-chess-queen-3d-model-87edddd9de144567a4ccf7711a6b0c14) by LukeModels75 (https://sketchfab.com/lucasgamerbdf) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

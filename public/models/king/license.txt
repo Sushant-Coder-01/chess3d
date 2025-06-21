@@ -1,0 +1,11 @@
+Model Information:
+* title:	Chess King
+* source:	https://sketchfab.com/3d-models/chess-king-e96d406344b34be9aefaa03a7639e7e4
+* author:	Feld1 (https://sketchfab.com/Feld1)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Chess King" (https://sketchfab.com/3d-models/chess-king-e96d406344b34be9aefaa03a7639e7e4) by Feld1 (https://sketchfab.com/Feld1) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
