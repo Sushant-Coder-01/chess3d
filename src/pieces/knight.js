@@ -35,7 +35,6 @@ const createKnightInstance = (
 
   model.traverse((child) => {
     if (child.isMesh) {
-      console.log(child);
       if (child.name === "Vert004_Material003_0") {
         child.scale.set(1, 1, 1);
 
@@ -53,12 +52,6 @@ const createKnightInstance = (
       loader.load(textureType, (texture) => {
         child.material = new MeshStandardMaterial({
           color: color,
-          roughness: 0.6,
-          metalness: 0.0,
-          emissive: 0,
-          transparent: false,
-          opacity: 1.0,
-          depthWrite: true,
         });
         child.material.needsUpdate = true;
       });
