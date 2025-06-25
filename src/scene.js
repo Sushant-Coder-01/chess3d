@@ -9,7 +9,7 @@ const sizes = {
 };
 
 const camera = new THREE.PerspectiveCamera(
-  75,
+  45,
   sizes.width / sizes.height,
   0.01,
   1000

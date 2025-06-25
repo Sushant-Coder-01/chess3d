@@ -14,6 +14,8 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 export const createTiles = (scene) => {
+  const columns = ["A", "B", "C", "D", "E", "F", "G", "H"]; // Column names
+
   for (let row = 0; row < 8; row++) {
     const rowTiles = [];
 
@@ -27,10 +29,17 @@ export const createTiles = (scene) => {
 
       const tile = new THREE.Mesh(tileGeometry, tileMaterial);
       tile.position.set(col - 3.5, 0.25, row - 3.5);
-      tile.name = `tile${row}-${col}`;
+      tile.name = `${columns[col]}${8 - row}`; // Row is inverted for chess (8-1 instead of 0-7)
       tile.userData = { row, col, color: isWhite ? "white" : "black" };
 
       scene.add(tile);
+
+      // Create label sprite for each tile
+      const sprite = createLabel(tile.name);
+      sprite.position.set(tile.position.x, tile.position.y, tile.position.z); // Place at top-left corner
+
+      scene.add(sprite);
+
       rowTiles.push(tile);
     }
 
@@ -40,6 +49,21 @@ export const createTiles = (scene) => {
   // Register click interaction
   window.addEventListener("click", handleTileClick(scene));
 };
+
+function createLabel(text) {
+  // Create a sprite with text as a label
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  context.font = "24px Arial";
+  context.fillStyle = "#b7b7b7";
+  context.fillText(text, 50, 50, 100);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  const material = new THREE.SpriteMaterial({ map: texture });
+  const sprite = new THREE.Sprite(material);
+
+  return sprite;
+}
 
 function handleTileClick(scene) {
   return function (event) {

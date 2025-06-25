@@ -1,55 +1,20 @@
 {
-  "accessors": [
-    {
-      "bufferView": 1,
-      "componentType": 5126,
-      "count": 5090,
-      "max": [
-        -135.336181640625,
-        945.1785888671875,
-        1441.4432373046875
-      ],
-      "min": [
-        -2025.7236328125,
-        -945.208984375,
-        -2924.63427734375
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 1,
-      "byteOffset": 61080,
-      "componentType": 5126,
-      "count": 5090,
-      "max": [
-        0.9999838471412659,
-        0.9999838471412659,
-        1.0
-      ],
-      "min": [
-        -0.9999838471412659,
-        -0.9999838471412659,
-        -1.0
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 0,
-      "componentType": 5125,
-      "count": 27840,
-      "type": "SCALAR"
-    }
-  ],
   "asset": {
+    "generator": "Sketchfab-12.68.0",
+    "version": "2.0",
     "extras": {
       "author": "Robbie.Mclaughlin (https://sketchfab.com/Robbie.Mclaughlin)",
       "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
       "source": "https://sketchfab.com/3d-models/bishop-05d96b692c5a412c996236496a08517c",
       "title": "bishop"
-    },
-    "generator": "Sketchfab-12.68.0",
-    "version": "2.0"
+    }
   },
+  "buffers": [
+    {
+      "byteLength": 233520,
+      "uri": "scene.bin"
+    }
+  ],
   "bufferViews": [
     {
       "buffer": 0,
@@ -66,10 +31,29 @@
       "target": 34962
     }
   ],
-  "buffers": [
+  "accessors": [
     {
-      "byteLength": 233520,
-      "uri": "scene.bin"
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 5090,
+      "max": [-135.336181640625, 945.1785888671875, 1441.4432373046875],
+      "min": [-2025.7236328125, -945.208984375, -2924.63427734375],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 61080,
+      "componentType": 5126,
+      "count": 5090,
+      "max": [0.9999838471412659, 0.9999838471412659, 1.0],
+      "min": [-0.9999838471412659, -0.9999838471412659, -1.0],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 27840,
+      "type": "SCALAR"
     }
   ],
   "materials": [
@@ -100,47 +84,15 @@
   ],
   "nodes": [
     {
-      "children": [
-        1
-      ],
-      "matrix": [
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        2.220446049250313e-16,
-        -1.0,
-        0.0,
-        0.0,
-        1.0,
-        2.220446049250313e-16,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0
-      ],
-      "name": "Sketchfab_model"
-    },
-    {
-      "children": [
-        2
-      ],
-      "name": "260e1678af304e26ac4e035ee0c89b2c.stl.cleaner.materialmerger.gles"
-    },
-    {
-      "mesh": 0,
-      "name": "Object_2"
+      "name": "bishop",
+      "mesh": 0
     }
   ],
-  "scene": 0,
   "scenes": [
     {
       "name": "Sketchfab_Scene",
-      "nodes": [
-        0
-      ]
+      "nodes": [0]
     }
-  ]
+  ],
+  "scene": 0
 }
