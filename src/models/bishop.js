@@ -46,8 +46,8 @@ export const loadBishop = (model) => {
   box.getCenter(center);
   originalMesh.geometry.translate(-center.x, -center.y, -center.z);
 
-  createBishopInstance(originalMesh, "C1", "#c8b89f"); // White
-  createBishopInstance(originalMesh, "F1", "#c8b89f"); // White
-  createBishopInstance(originalMesh, "C8", "#4b3621"); // Black
-  createBishopInstance(originalMesh, "F8", "#4b3621"); // Black
+  createBishopInstance(originalMesh, "C1", "#d0d0d0"); // White
+  createBishopInstance(originalMesh, "F1", "#d0d0d0"); // White
+  createBishopInstance(originalMesh, "C8", "#8c7f71"); // Black
+  createBishopInstance(originalMesh, "F8", "#8c7f71"); // Black
 };

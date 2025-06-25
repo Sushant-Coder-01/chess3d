@@ -13,9 +13,7 @@ lightning();
 createBoard(scene);
 
 // loadModels
-loadModels().then(() => {
-  console.log(bishops);
-});
+loadModels();
 
 // Setup controls
 setupControls(camera, canvas);

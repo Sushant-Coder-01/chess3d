@@ -1,3 +1,3 @@
 export const loadKing = (model) => {
-  // console.log("loadKing");
+  console.log(model);
 };

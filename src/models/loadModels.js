@@ -10,40 +10,36 @@ import { loadPawn } from "./pawn";
 const loader = new GLTFLoader();
 const models = ["bishop", "king", "knight", "pawn", "queen", "rook"];
 
+const modelLoaders = {
+  bishop: loadBishop,
+  king: loadKing,
+  knight: loadKnight,
+  pawn: loadPawn,
+  queen: loadQueen,
+  rook: loadRook,
+};
+
 const loadModel = (modelName) => {
   return new Promise((resolve, reject) => {
     loader.load(
       `/models/${modelName}/scene.gltf`,
       (gltf) => {
         const model = gltf.scene;
-        switch (modelName.toLowerCase()) {
-          case "bishop":
-            loadBishop(model);
-            break;
-          case "king":
-            loadKing(model);
-            break;
-          case "knight":
-            loadKnight(model);
-            break;
-          case "pawn":
-            loadPawn(model);
-            break;
-          case "queen":
-            loadQueen(model);
-            break;
-          case "rook":
-            loadRook(model);
-            break;
-          default:
-            console.warn(`Unknown model: ${modelName}`);
+
+        const loaderFunction = modelLoaders[modelName.toLowerCase()];
+
+        if (loaderFunction) {
+          loaderFunction(model);
+          resolve();
+        } else {
+          console.warn(`Unknown model: ${modelName}`);
+          reject(`Unknown model: ${modelName}`);
         }
-        resolve(); // Resolving the promise after loading
       },
       undefined,
       (error) => {
         console.error(`Error loading ${modelName}:`, error);
-        reject(error); // Reject the promise in case of an error
+        reject(error);
       }
     );
   });
@@ -51,8 +47,7 @@ const loadModel = (modelName) => {
 
 const loadModels = async () => {
   try {
-    // Use Promise.all to load all models concurrently
-    await Promise.all(models.map(loadModel));
+    await Promise.all(models.map((modelName) => loadModel(modelName)));
     console.log("All models loaded successfully!");
   } catch (error) {
     console.error("Error loading models:", error);
