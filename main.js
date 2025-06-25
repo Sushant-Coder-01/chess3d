@@ -4,6 +4,7 @@ import { setupControls } from "./src/controls.js";
 import { animate } from "./src/animate.js";
 import loadModels from "./src/models/loadModels.js";
 import { lightning } from "./src/lightning.js";
+import { bishops } from "./src/models/bishop.js";
 
 // lighning
 lightning();
@@ -12,7 +13,9 @@ lightning();
 createBoard(scene);
 
 // loadModels
-loadModels();
+loadModels().then(() => {
+  console.log(bishops);
+});
 
 // Setup controls
 setupControls(camera, canvas);

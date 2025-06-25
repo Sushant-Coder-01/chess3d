@@ -10,36 +10,53 @@ import { loadPawn } from "./pawn";
 const loader = new GLTFLoader();
 const models = ["bishop", "king", "knight", "pawn", "queen", "rook"];
 
-const loadModels = () => {
-  models.forEach((modelName) => {
+const loadModel = (modelName) => {
+  return new Promise((resolve, reject) => {
     loader.load(
       `/models/${modelName}/scene.gltf`,
       (gltf) => {
         const model = gltf.scene;
-
         switch (modelName.toLowerCase()) {
           case "bishop":
-            return loadBishop(model);
+            loadBishop(model);
+            break;
           case "king":
-            return loadKing(model);
+            loadKing(model);
+            break;
           case "knight":
-            return loadKnight(model);
+            loadKnight(model);
+            break;
           case "pawn":
-            return loadPawn(model);
+            loadPawn(model);
+            break;
           case "queen":
-            return loadQueen(model);
+            loadQueen(model);
+            break;
           case "rook":
-            return loadRook(model);
+            loadRook(model);
+            break;
           default:
             console.warn(`Unknown model: ${modelName}`);
         }
+        resolve(); // Resolving the promise after loading
       },
       undefined,
       (error) => {
         console.error(`Error loading ${modelName}:`, error);
+        reject(error); // Reject the promise in case of an error
       }
     );
   });
+};
+
+const loadModels = async () => {
+  try {
+    // Use Promise.all to load all models concurrently
+    await Promise.all(models.map(loadModel));
+    console.log("All models loaded successfully!");
+  } catch (error) {
+    console.error("Error loading models:", error);
+  }
 };
 
 export default loadModels;

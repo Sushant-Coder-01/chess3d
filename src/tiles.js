@@ -96,3 +96,14 @@ function highlightTile(tile) {
   tile.material.color.set("#E99F51"); // cyan
   lastHighlighted = tile;
 }
+
+export const tileFromChessNotation = (tileName) => {
+  const columns = ["A", "B", "C", "D", "E", "F", "G", "H"];
+  const colLetter = tileName[0].toUpperCase();
+  const rowNumber = parseInt(tileName[1]); // 1 to 8
+
+  const col = columns.indexOf(colLetter);
+  const row = 8 - rowNumber; // 8 → 0, 1 → 7
+
+  return tileGrid[row][col]; // returns the tile mesh
+};

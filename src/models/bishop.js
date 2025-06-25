@@ -1,30 +1,53 @@
-import { Box3, Box3Helper, Euler, Vector3, BoxHelper } from "three";
+import {
+  Box3,
+  Box3Helper,
+  Euler,
+  Mesh,
+  MeshBasicMaterial,
+  SphereGeometry,
+  Vector3,
+} from "three";
 import { scene } from "../scene";
-import { tileGrid } from "../tiles";
+import { tileFromChessNotation } from "../tiles";
 
-const createBishopInstance = (originalMesh, position, color) => {
+// Store bishop meshes for easy access
+export const bishops = {};
+
+const createBishopInstance = (originalMesh, tileName, color) => {
+  const tile = tileFromChessNotation(tileName);
   const mesh = originalMesh.clone();
+  mesh.material = mesh.material.clone();
 
-  mesh.position.copy(position);
+  const bbox = new Box3().setFromObject(mesh);
+  const center = new Vector3();
+  bbox.getCenter(center);
+  mesh.position.sub(center);
+
+  mesh.position.copy(tile.position);
+
+  mesh.position.y = 1;
   mesh.scale.set(0.0003, 0.0003, 0.0003);
   mesh.setRotationFromEuler(new Euler(-Math.PI / 2, 0, 0));
-  mesh.material.color.set(color);
-
-  // Optional: visualize bounding box
-  const box = new Box3().setFromObject(mesh);
-  const helper = new Box3Helper(box, color);
-  scene.add(helper);
+  mesh.material.color.set(`${color}`);
+  mesh.name = `Bishop_${tileName}`;
 
   scene.add(mesh);
+
+  // Store mesh in bishops object
+  bishops[tileName] = mesh;
 };
 
 export const loadBishop = (model) => {
   const originalMesh = model.children[0];
 
-  const bishop_C1 = createBishopInstance(originalMesh, "C1", "#eadcb5");
-  const bishop_F1 = createBishopInstance(originalMesh, "F1", "#eadcb5");
-  const bishop_C8 = createBishopInstance(originalMesh, "C8", "#fff");
-  const bishop_F8 = createBishopInstance(originalMesh, "F8", "#fff");
+  originalMesh.geometry.computeBoundingBox();
+  const box = originalMesh.geometry.boundingBox;
+  const center = new Vector3();
+  box.getCenter(center);
+  originalMesh.geometry.translate(-center.x, -center.y, -center.z);
 
-  console.log(tileGrid);
+  createBishopInstance(originalMesh, "C1", "#c8b89f"); // White
+  createBishopInstance(originalMesh, "F1", "#c8b89f"); // White
+  createBishopInstance(originalMesh, "C8", "#4b3621"); // Black
+  createBishopInstance(originalMesh, "F8", "#4b3621"); // Black
 };
