@@ -75,7 +75,7 @@
   "materials": [
     {
       "doubleSided": true,
-      "name": "Scene_-_Root",
+      "name": "standardSurface1",
       "pbrMetallicRoughness": {
         "metallicFactor": 0.0,
         "roughnessFactor": 0.6
