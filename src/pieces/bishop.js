@@ -14,47 +14,62 @@ import { PIECES, TEXTURES } from "../constant";
 // Store bishop meshes for easy access
 export const bishops = {};
 
-const createBishopInstance = (originalMesh, tileName, textureType) => {
+// Helper to center geometry
+const centerGeometry = (mesh) => {
+  mesh.geometry.computeBoundingBox();
+  const box = mesh.geometry.boundingBox;
+  const center = new Vector3();
+  box.getCenter(center);
+  mesh.geometry.translate(-center.x, -center.y, -center.z);
+};
+
+const loader = new TextureLoader();
+
+export const createBishopInstance = (
+  originalModel,
+  tileName,
+  textureType,
+  color
+) => {
   const tile = tileFromChessNotation(tileName);
-  const mesh = originalMesh.clone();
+  const model = originalModel.clone();
+  let mesh = null;
+  model.traverse((child) => {
+    if (child.isMesh && !mesh) mesh = child;
+  });
   mesh.material = mesh.material.clone();
 
-  const loader = new TextureLoader();
+  // Center geometry before texture loads
+  centerGeometry(mesh);
 
-  // Load texture asynchronously and apply once it's loaded
-  const texture = loader.load(textureType, () => {
-    mesh.material.map = texture;
-    mesh.material.needsUpdate = true; // Make sure material updates
+  // Load texture and apply everything after it's loaded
+  loader.load(textureType, (texture) => {
+    // mesh.material = new MeshStandardMaterial({ map: texture });
+    mesh.material = new MeshStandardMaterial({
+      color: color,
+      metalness: 0.1,
+      roughness: 0.5,
+    });
+
+    // mesh.material.needsUpdate = true;
+
+    // Apply transform to parent model
+    model.position.copy(tile.position);
+    model.position.y = 0.95;
+    model.scale.set(0.0003, 0.0003, 0.0003);
+    model.setRotationFromEuler(new Euler(-Math.PI / 2, 0, 0));
+
+    model.name = `Bishop_${tileName}`;
+
+    // Add to scene and store
+    scene.add(model);
+    bishops[tileName] = model;
   });
-
-  mesh.position.copy(tile.position);
-  mesh.position.y = 0.95;
-
-  // Adjust scale if needed
-  mesh.scale.set(0.0003, 0.0003, 0.0003);
-
-  // Correct rotation of the mesh
-  mesh.setRotationFromEuler(new Euler(-Math.PI / 2, 0, 0));
-
-  mesh.name = `Bishop_${tileName}`;
-
-  scene.add(mesh);
-
-  // Store mesh in bishops object
-  bishops[tileName] = mesh;
 };
 
 export const loadBishop = (model) => {
-  const originalMesh = model.children[0];
-
-  originalMesh.geometry.computeBoundingBox();
-  const box = originalMesh.geometry.boundingBox;
-  const center = new Vector3();
-  box.getCenter(center);
-  originalMesh.geometry.translate(-center.x, -center.y, -center.z);
-
-  createBishopInstance(originalMesh, "C1", TEXTURES.metal); // White
-  createBishopInstance(originalMesh, "F1", TEXTURES.marble); // White
-  createBishopInstance(originalMesh, "C8", TEXTURES.wood); // Black
-  createBishopInstance(originalMesh, "F8", TEXTURES.wood); // Black
+  createBishopInstance(model, "C1", TEXTURES.marble, PIECES.white); // White
+  createBishopInstance(model, "F1", TEXTURES.marble, PIECES.white); // White
+  createBishopInstance(model, "C8", TEXTURES.wood, PIECES.black); // Black
+  createBishopInstance(model, "F8", TEXTURES.wood, PIECES.black); // Black
 };

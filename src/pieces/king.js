@@ -1,4 +1,10 @@
-import { Box3, Box3Helper, Euler, TextureLoader } from "three";
+import {
+  Box3,
+  Box3Helper,
+  Euler,
+  MeshStandardMaterial,
+  TextureLoader,
+} from "three";
 import { scene } from "../scene";
 import { tileFromChessNotation } from "../tiles";
 import { PIECES, TEXTURES } from "../constant";
@@ -6,7 +12,9 @@ import { PIECES, TEXTURES } from "../constant";
 // Store king meshes for easy access
 export const kings = {};
 
-const createKingInstance = (originalModel, tileName, textureType) => {
+const loader = new TextureLoader();
+
+const createKingInstance = (originalModel, tileName, textureType, color) => {
   const tile = tileFromChessNotation(tileName);
 
   const model = originalModel.clone();
@@ -16,24 +24,30 @@ const createKingInstance = (originalModel, tileName, textureType) => {
   model.position.copy(tile.position);
   model.position.y = 0.8;
 
-  const loader = new TextureLoader();
-  const texture = loader.load(textureType);
+  loader.load(textureType, (texture) => {
+    mesh.material = new MeshStandardMaterial({ map: texture });
+    mesh.material = new MeshStandardMaterial({
+      color: color,
+      metalness: 0.1,
+      roughness: 0.5,
+    });
 
-  mesh.material.map = texture;
-  mesh.material.needsUpdate = true;
+    mesh.material.map = texture;
+    mesh.material.needsUpdate = true;
 
-  mesh.name = `King_${tileName}`;
-  model.name = `King_${tileName}`;
+    mesh.name = `King_${tileName}`;
+    model.name = `King_${tileName}`;
 
-  scene.add(model);
+    scene.add(model);
 
-  // Store the mesh in the kings object for easy reference
-  kings[tileName] = model;
+    // Store the mesh in the kings object for easy reference
+    kings[tileName] = model;
+  });
 };
 
 export const loadKing = (model) => {
   model.scale.set(16, 16, 16);
 
-  createKingInstance(model, "e1", TEXTURES.marble); // White
-  createKingInstance(model, "e8", TEXTURES.wood); // Black
+  createKingInstance(model, "e1", TEXTURES.marble, PIECES.white); // White
+  createKingInstance(model, "e8", TEXTURES.wood, PIECES.black); // Black
 };
