@@ -2,9 +2,8 @@ import { scene, camera, canvas } from "./src/scene.js";
 import { createBoard } from "./src/board.js";
 import { setupControls } from "./src/controls.js";
 import { animate } from "./src/animate.js";
-import loadModels from "./src/models/loadModels.js";
+import loadModels from "./src/pieces/loadModels.js";
 import { lightning } from "./src/lightning.js";
-import { bishops } from "./src/models/bishop.js";
 
 // lighning
 lightning();

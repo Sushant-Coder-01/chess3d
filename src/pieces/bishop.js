@@ -3,32 +3,39 @@ import {
   Box3Helper,
   Euler,
   Mesh,
-  MeshBasicMaterial,
-  SphereGeometry,
+  MeshStandardMaterial,
+  TextureLoader,
   Vector3,
 } from "three";
 import { scene } from "../scene";
 import { tileFromChessNotation } from "../tiles";
+import { PIECES, TEXTURES } from "../constant";
 
 // Store bishop meshes for easy access
 export const bishops = {};
 
-const createBishopInstance = (originalMesh, tileName, color) => {
+const createBishopInstance = (originalMesh, tileName, textureType) => {
   const tile = tileFromChessNotation(tileName);
   const mesh = originalMesh.clone();
   mesh.material = mesh.material.clone();
 
-  const bbox = new Box3().setFromObject(mesh);
-  const center = new Vector3();
-  bbox.getCenter(center);
-  mesh.position.sub(center);
+  const loader = new TextureLoader();
+
+  // Load texture asynchronously and apply once it's loaded
+  const texture = loader.load(textureType, () => {
+    mesh.material.map = texture;
+    mesh.material.needsUpdate = true; // Make sure material updates
+  });
 
   mesh.position.copy(tile.position);
+  mesh.position.y = 0.95;
 
-  mesh.position.y = 1;
+  // Adjust scale if needed
   mesh.scale.set(0.0003, 0.0003, 0.0003);
+
+  // Correct rotation of the mesh
   mesh.setRotationFromEuler(new Euler(-Math.PI / 2, 0, 0));
-  mesh.material.color.set(`${color}`);
+
   mesh.name = `Bishop_${tileName}`;
 
   scene.add(mesh);
@@ -46,8 +53,8 @@ export const loadBishop = (model) => {
   box.getCenter(center);
   originalMesh.geometry.translate(-center.x, -center.y, -center.z);
 
-  createBishopInstance(originalMesh, "C1", "#d0d0d0"); // White
-  createBishopInstance(originalMesh, "F1", "#d0d0d0"); // White
-  createBishopInstance(originalMesh, "C8", "#8c7f71"); // Black
-  createBishopInstance(originalMesh, "F8", "#8c7f71"); // Black
+  createBishopInstance(originalMesh, "C1", TEXTURES.metal); // White
+  createBishopInstance(originalMesh, "F1", TEXTURES.marble); // White
+  createBishopInstance(originalMesh, "C8", TEXTURES.wood); // Black
+  createBishopInstance(originalMesh, "F8", TEXTURES.wood); // Black
 };

@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { camera, sizes } from "./scene";
+import { LABELS, TILES } from "./constant";
 
 // Shared tile geometry
 const TILE_SIZE = 1;
@@ -24,13 +25,13 @@ export const createTiles = (scene) => {
 
       // Create a new material for each tile (no sharing)
       const tileMaterial = new THREE.MeshBasicMaterial({
-        color: isWhite ? "white" : "black",
+        color: isWhite ? TILES.light : TILES.dark,
       });
 
       const tile = new THREE.Mesh(tileGeometry, tileMaterial);
       tile.position.set(col - 3.5, 0.25, row - 3.5);
       tile.name = `${columns[col]}${8 - row}`; // Row is inverted for chess (8-1 instead of 0-7)
-      tile.userData = { row, col, color: isWhite ? "white" : "black" };
+      tile.userData = { row, col, color: isWhite ? TILES.light : TILES.dark };
 
       scene.add(tile);
 
@@ -55,7 +56,7 @@ function createLabel(text) {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
   context.font = "24px Arial";
-  context.fillStyle = "#b7b7b7";
+  context.fillStyle = LABELS.color;
   context.fillText(text, 50, 50, 100);
 
   const texture = new THREE.CanvasTexture(canvas);
