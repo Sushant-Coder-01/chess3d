@@ -1,10 +1,18 @@
-import { Vector3, Box3, MeshStandardMaterial, Euler } from "three";
+import {
+  Vector3,
+  Box3,
+  MeshStandardMaterial,
+  Euler,
+  TextureLoader,
+} from "three";
 import { scene } from "../scene";
-import { PIECES } from "../constant";
+import { PIECES, TEXTURES } from "../constant";
 import { tileFromChessNotation } from "../tiles";
 
 // Optional: store if needed
 export const rooks = {};
+
+const loader = new TextureLoader();
 
 // Helper to center mesh geometry
 const centerGeometry = (mesh) => {
@@ -15,7 +23,12 @@ const centerGeometry = (mesh) => {
   mesh.geometry.translate(-center.x, -center.y, -center.z);
 };
 
-export const createRookInstance = (originalModel, tileName, color) => {
+export const createRookInstance = (
+  originalModel,
+  tileName,
+  textureType,
+  color
+) => {
   const tile = tileFromChessNotation(tileName);
   const model = originalModel.clone();
 
@@ -23,28 +36,38 @@ export const createRookInstance = (originalModel, tileName, color) => {
   model.traverse((child) => {
     if (child.isMesh) {
       mesh = child;
-      mesh.material = new MeshStandardMaterial({ color });
       centerGeometry(mesh);
     }
   });
 
-  model.position.copy(tile.position);
-  model.position.y = 0.8;
-  model.scale.set(0.0003, 0.0003, 0.0003); // scale down massively
-  model.setRotationFromEuler(new Euler(-Math.PI / 2, 0, 0));
+  loader.load(textureType, (texture) => {
+    mesh.material = new MeshStandardMaterial({
+      map: texture,
+      color: color,
+      metalness: 0.1,
+      roughness: 0.5,
+    });
 
-  model.name = `Rook_${tileName}`;
+    mesh.material.needsUpdate = true;
 
-  scene.add(model);
-  rooks[tileName] = model;
+    model.position.copy(tile.position);
+    model.position.y = 0.8;
+    model.scale.set(0.7, 0.7, 0.7);
+    model.setRotationFromEuler(new Euler(-Math.PI / 2, 0, 0));
+
+    model.name = `Rook_${tileName}`;
+
+    scene.add(model);
+    rooks[tileName] = model;
+  });
 };
 
 export const loadRook = (model) => {
   // White Rooks
-  createRookInstance(model, "A1", PIECES.white);
-  createRookInstance(model, "H1", PIECES.white);
+  createRookInstance(model, "A1", TEXTURES.wood, PIECES.white);
+  createRookInstance(model, "H1", TEXTURES.wood, PIECES.white);
 
   // Black Rooks
-  createRookInstance(model, "A8", PIECES.black);
-  createRookInstance(model, "H8", PIECES.black);
+  createRookInstance(model, "A8", TEXTURES.wood, PIECES.black);
+  createRookInstance(model, "H8", TEXTURES.wood, PIECES.black);
 };

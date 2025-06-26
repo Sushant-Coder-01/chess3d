@@ -1,98 +1,224 @@
 {
-  "accessors": [
-    {
-      "bufferView": 1,
-      "componentType": 5126,
-      "count": 3954,
-      "max": [1910.7626953125, 1910.7633056640625, 3428.69091796875],
-      "min": [0.0, 0.0, 0.0],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 1,
-      "byteOffset": 47448,
-      "componentType": 5126,
-      "count": 3954,
-      "max": [0.9999940395355225, 1.0, 1.0],
-      "min": [-0.999575138092041, -1.0, -1.0],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 0,
-      "componentType": 5125,
-      "count": 17346,
-      "type": "SCALAR"
-    }
-  ],
   "asset": {
     "extras": {
-      "author": "Robbie.Mclaughlin (https://sketchfab.com/Robbie.Mclaughlin)",
+      "author": "syeds shoaib (https://sketchfab.com/syeds)",
       "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/rook-stl-f6e3937e1a0d4add9348cb5e4fc8526d",
-      "title": "Rook STL"
+      "source": "https://sketchfab.com/3d-models/rook-chess-piece-c096a7cfa1934f58b0ef7550057775f8",
+      "title": "Rook Chess piece"
     },
     "generator": "Sketchfab-12.68.0",
     "version": "2.0"
   },
-  "bufferViews": [
+  "scene": 0,
+  "scenes": [
     {
-      "buffer": 0,
-      "byteLength": 69384,
-      "name": "floatBufferViews",
-      "target": 34963
+      "name": "Sketchfab_Scene",
+      "nodes": [0]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [1],
+      "matrix": [
+        1.0, 0.0, 0.0, 0.0, 0.0, 2.220446049250313e-16, -1.0, 0.0, 0.0, 1.0,
+        2.220446049250313e-16, 0.0, 0.0, -1.2916087825942698e-6,
+        1.328279176959768e-5, 1.0
+      ],
+      "name": "Sketchfab_model"
     },
     {
-      "buffer": 0,
-      "byteLength": 94896,
-      "byteOffset": 69384,
-      "byteStride": 12,
-      "name": "floatBufferViews",
-      "target": 34962
-    }
-  ],
-  "buffers": [
+      "children": [2],
+      "matrix": [
+        1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "name": "2f7335b001c5444cb2b7eb7164fa45ff.fbx"
+    },
     {
-      "byteLength": 164280,
-      "uri": "scene.bin"
-    }
-  ],
-  "materials": [
+      "children": [3],
+      "name": "RootNode"
+    },
     {
-      "doubleSided": true,
-      "name": "Scene_-_Root",
-      "pbrMetallicRoughness": {
-        "metallicFactor": 0.0,
-        "roughnessFactor": 0.6
-      }
+      "children": [4],
+      "matrix": [
+        1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0
+      ],
+      "name": "Circle.001"
+    },
+    {
+      "mesh": 0,
+      "name": "Circle.001_Material.001_0"
     }
   ],
   "meshes": [
     {
-      "name": "Object_0",
+      "name": "Circle.001_Material.001_0",
       "primitives": [
         {
           "attributes": {
             "NORMAL": 1,
-            "POSITION": 0
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3,
+            "TEXCOORD_1": 4,
+            "TEXCOORD_2": 5
           },
-          "indices": 2,
+          "indices": 6,
           "material": 0,
           "mode": 4
         }
       ]
     }
   ],
-  "nodes": [
+  "materials": [
     {
-      "mesh": 0,
-      "name": "Rook"
+      "doubleSided": true,
+      "name": "Material.001",
+      "normalTexture": {
+        "index": 2,
+        "texCoord": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
     }
   ],
-  "scenes": [
+  "textures": [
     {
-      "name": "CleanScene",
-      "nodes": [0]
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
     }
   ],
-  "scene": 0
+  "images": [
+    {
+      "uri": "textures/Material.001_baseColor.jpeg"
+    },
+    {
+      "uri": "textures/Material.001_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/Material.001_normal.png"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 2706,
+      "max": [0.4040142297744751, 0.40412238240242004, 0.6980938911437988],
+      "min": [-0.4046574831008911, -0.4045493006706238, -0.7232072353363037],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 32472,
+      "componentType": 5126,
+      "count": 2706,
+      "max": [1.0, 1.0, 1.0],
+      "min": [-1.0, -1.0, -1.0],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 2706,
+      "max": [0.9999999403953552, 0.9999999403953552, 0.9999768137931824, 1.0],
+      "min": [
+        -0.9996695518493652, -0.9999947547912598, -0.9422488808631897, -1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 2706,
+      "max": [0.9753907918930054, 1.0],
+      "min": [0.0, -0.005567545536905527],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 21648,
+      "componentType": 5126,
+      "count": 2706,
+      "max": [0.9753907918930054, 1.0],
+      "min": [0.0, -0.005567545536905527],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 43296,
+      "componentType": 5126,
+      "count": 2706,
+      "max": [0.9753907918930054, 1.0],
+      "min": [0.0, -0.005567545536905527],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 10614,
+      "type": "SCALAR"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 42456,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 64944,
+      "byteOffset": 42456,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 64944,
+      "byteOffset": 107400,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 43296,
+      "byteOffset": 172344,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 215640,
+      "uri": "scene.bin"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ]
 }

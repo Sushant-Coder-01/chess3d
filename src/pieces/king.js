@@ -48,6 +48,6 @@ const createKingInstance = (originalModel, tileName, textureType, color) => {
 export const loadKing = (model) => {
   model.scale.set(16, 16, 16);
 
-  createKingInstance(model, "e1", TEXTURES.marble, PIECES.white); // White
+  createKingInstance(model, "e1", TEXTURES.wood, PIECES.white); // White
   createKingInstance(model, "e8", TEXTURES.wood, PIECES.black); // Black
 };

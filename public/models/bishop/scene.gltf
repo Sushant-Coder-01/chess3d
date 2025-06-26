@@ -1,81 +1,141 @@
 {
-  "asset": {
-    "generator": "Sketchfab-12.68.0",
-    "version": "2.0",
-    "extras": {
-      "author": "Robbie.Mclaughlin (https://sketchfab.com/Robbie.Mclaughlin)",
-      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/bishop-05d96b692c5a412c996236496a08517c",
-      "title": "bishop"
-    }
-  },
-  "buffers": [
+  "accessors": [
     {
-      "byteLength": 233520,
-      "uri": "scene.bin"
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 5416,
+      "max": [1.3001104593276978, 2.927361488342285, 1.3213248252868652],
+      "min": [-1.342539668083191, -2.9111781120300293, -1.3213253021240234],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 64992,
+      "componentType": 5126,
+      "count": 5416,
+      "max": [0.9999882578849792, 1.0, 0.9999882578849792],
+      "min": [-0.9999882578849792, -1.0, -0.9999882578849792],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 5416,
+      "max": [1.0, 0.9999855160713196, 0.9843546748161316, 1.0],
+      "min": [-1.0, -0.9978311657905579, -0.9792272448539734, 1.0],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 5416,
+      "max": [0.9980080723762512, 0.9849693775177002],
+      "min": [0.0, 0.0],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 29880,
+      "type": "SCALAR"
     }
   ],
+  "asset": {
+    "extras": {
+      "author": "francesca23 (https://sketchfab.com/francesca23)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/wooden-bishop-chess-piece-6ca1785eca0342c482a2376a712f756a",
+      "title": "Wooden Bishop Chess Piece"
+    },
+    "generator": "Sketchfab-16.68.0",
+    "version": "2.0"
+  },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 111360,
+      "byteLength": 119520,
       "name": "floatBufferViews",
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 122160,
-      "byteOffset": 111360,
+      "byteLength": 43328,
+      "byteOffset": 119520,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 129984,
+      "byteOffset": 162848,
       "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 86656,
+      "byteOffset": 292832,
+      "byteStride": 16,
       "name": "floatBufferViews",
       "target": 34962
     }
   ],
-  "accessors": [
+  "buffers": [
     {
-      "bufferView": 1,
-      "componentType": 5126,
-      "count": 5090,
-      "max": [-135.336181640625, 945.1785888671875, 1441.4432373046875],
-      "min": [-2025.7236328125, -945.208984375, -2924.63427734375],
-      "type": "VEC3"
+      "byteLength": 379488,
+      "uri": "scene.bin"
+    }
+  ],
+  "extensionsUsed": ["KHR_materials_specular"],
+  "images": [
+    {
+      "uri": "textures/wood_baseColor.png"
     },
     {
-      "bufferView": 1,
-      "byteOffset": 61080,
-      "componentType": 5126,
-      "count": 5090,
-      "max": [0.9999838471412659, 0.9999838471412659, 1.0],
-      "min": [-0.9999838471412659, -0.9999838471412659, -1.0],
-      "type": "VEC3"
+      "uri": "textures/wood_metallicRoughness.png"
     },
     {
-      "bufferView": 0,
-      "componentType": 5125,
-      "count": 27840,
-      "type": "SCALAR"
+      "uri": "textures/wood_normal.png"
     }
   ],
   "materials": [
     {
       "doubleSided": true,
-      "name": "Scene_-_Root",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularColorFactor": [1.0, 1.0, 1.0],
+          "specularFactor": 0.1630481159561629
+        }
+      },
+      "name": "wood",
+      "normalTexture": {
+        "index": 2
+      },
       "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
         "metallicFactor": 0.0,
-        "roughnessFactor": 0.6
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
       }
     }
   ],
   "meshes": [
     {
-      "name": "Object_0",
+      "name": "bishop_body_wood_0",
       "primitives": [
         {
           "attributes": {
             "NORMAL": 1,
-            "POSITION": 0
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
           },
-          "indices": 2,
+          "indices": 4,
           "material": 0,
           "mode": 4
         }
@@ -84,15 +144,61 @@
   ],
   "nodes": [
     {
-      "name": "bishop",
-      "mesh": 0
+      "children": [1],
+      "matrix": [
+        1.0, 0.0, 0.0, 0.0, 0.0, 2.220446049250313e-16, -1.0, 0.0, 0.0, 1.0,
+        2.220446049250313e-16, 0.0, 0.0, 0.0, 0.0, 1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [2],
+      "matrix": [
+        0.009999999776482582, 0.0, 0.0, 0.0, 0.0, 0.0, 0.009999999776482582,
+        0.0, 0.0, -0.009999999776482582, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0
+      ],
+      "name": "c96feedf0e7d40c6a876a7270a3628c4.fbx"
+    },
+    {
+      "children": [3],
+      "name": "RootNode"
+    },
+    {
+      "children": [4],
+      "name": "bishop_body"
+    },
+    {
+      "mesh": 0,
+      "name": "bishop_body_wood_0"
     }
   ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
   "scenes": [
     {
       "name": "Sketchfab_Scene",
       "nodes": [0]
     }
   ],
-  "scene": 0
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    }
+  ]
 }

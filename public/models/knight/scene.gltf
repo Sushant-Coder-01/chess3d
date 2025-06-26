@@ -1,183 +1,118 @@
 {
+  "asset": {
+    "version": "2.0",
+    "generator": "Sketchfab-14.81.0",
+    "extras": {
+      "author": "Feld1 (https://sketchfab.com/Feld1)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/chessknight-67df1cafffa842429edbad3be2481339",
+      "title": "ChessKnight"
+    }
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Centered_Scene",
+      "nodes": [0]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Centered_Knight",
+      "mesh": 0,
+      "translation": [0, 0, 0],
+      "scale": [1, 1, 1],
+      "rotation": [0, 0, 0, 1]
+    }
+  ],
+  "meshes": [
+    {
+      "name": "KnightMesh",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
   "accessors": [
     {
       "bufferView": 2,
       "componentType": 5126,
-      "count": 5377,
-      "max": [0.4135725498199463, 0.4135725498199463, 0.4435095191001892],
-      "min": [-0.4135725498199463, -0.4135725498199463, 0.0],
-      "type": "VEC3"
+      "count": 12218,
+      "type": "VEC3",
+      "min": [-0.9980267286300659, -1.0, -1.0022450685501099],
+      "max": [0.9980267286300659, 1.0000001192092896, 2.2809267044067383]
     },
     {
       "bufferView": 2,
-      "byteOffset": 64524,
+      "byteOffset": 146616,
       "componentType": 5126,
-      "count": 5377,
-      "max": [0.999960720539093, 0.999960720539093, 1.0],
-      "min": [-0.999960720539093, -0.9999606609344482, -0.9999966025352478],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 0,
-      "componentType": 5125,
-      "count": 32064,
-      "type": "SCALAR"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 129048,
-      "componentType": 5126,
-      "count": 12570,
-      "max": [0.3551716208457947, 0.2632376253604889, 0.9823983907699585],
-      "min": [-0.3958086669445038, -0.2632376253604889, 7.611741602886468e-5],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 279888,
-      "componentType": 5126,
-      "count": 12570,
-      "max": [0.9999788403511047, 0.9999994039535522, 0.9999999403953552],
-      "min": [-0.9998433589935303, -0.9999994039535522, -0.9993799328804016],
-      "type": "VEC3"
+      "count": 12218,
+      "type": "VEC3",
+      "min": [-1.0, -1.0, -1.0],
+      "max": [1.0, 1.0, 1.0]
     },
     {
       "bufferView": 1,
       "componentType": 5126,
-      "count": 12570,
-      "max": [0.0, 0.0],
+      "count": 12218,
+      "type": "VEC2",
       "min": [0.0, 0.0],
-      "type": "VEC2"
+      "max": [1.000000238418579, 1.000000238418579]
     },
     {
       "bufferView": 0,
-      "byteOffset": 128256,
       "componentType": 5125,
-      "count": 75456,
+      "count": 18792,
       "type": "SCALAR"
     }
   ],
-  "asset": {
-    "extras": {
-      "author": "LukeModels75 (https://sketchfab.com/lucasgamerbdf)",
-      "license": "CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)",
-      "source": "https://sketchfab.com/3d-models/elegant-chess-knight-3d-model-a69dfec5b4824a76ba1eec4ba2445e25",
-      "title": "Elegant Chess Knight 3D Model"
-    },
-    "generator": "Sketchfab-16.29.0",
-    "version": "2.0"
-  },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 430080,
-      "name": "floatBufferViews",
+      "byteLength": 75168,
+      "name": "IndexBuffer",
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 100560,
-      "byteOffset": 430080,
+      "byteLength": 97744,
+      "byteOffset": 75168,
       "byteStride": 8,
-      "name": "floatBufferViews",
+      "name": "TexcoordBuffer",
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 430728,
-      "byteOffset": 530640,
+      "byteLength": 293232,
+      "byteOffset": 172912,
       "byteStride": 12,
-      "name": "floatBufferViews",
+      "name": "VertexBuffer",
       "target": 34962
     }
   ],
   "buffers": [
     {
-      "byteLength": 961368,
+      "byteLength": 466144,
       "uri": "scene.bin"
     }
   ],
   "materials": [
     {
       "doubleSided": true,
-      "name": "standardSurface1",
+      "name": "SceneMaterial",
       "pbrMetallicRoughness": {
-        "baseColorFactor": [0.8, 0.8, 0.8, 1.0],
         "metallicFactor": 0.0,
         "roughnessFactor": 0.6
       }
-    }
-  ],
-  "meshes": [
-    {
-      "name": "Vert.004_Material.003_0",
-      "primitives": [
-        {
-          "attributes": {
-            "NORMAL": 1,
-            "POSITION": 0
-          },
-          "indices": 2,
-          "material": 0,
-          "mode": 4
-        }
-      ]
-    },
-    {
-      "name": "Plane.001_Material.003_0",
-      "primitives": [
-        {
-          "attributes": {
-            "NORMAL": 4,
-            "POSITION": 3,
-            "TEXCOORD_0": 5
-          },
-          "indices": 6,
-          "material": 0,
-          "mode": 4
-        }
-      ]
-    }
-  ],
-  "nodes": [
-    {
-      "children": [1],
-      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "name": "Sketchfab_model"
-    },
-    {
-      "children": [2],
-      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "name": "20684e1d95df4d95babfd99691bb5650.fbx"
-    },
-    {
-      "children": [3, 5],
-      "name": "RootNode"
-    },
-    {
-      "children": [4],
-      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-      "name": "Vert.004"
-    },
-    {
-      "mesh": 0,
-      "name": "Vert.004_Material.003_0"
-    },
-    {
-      "children": [6],
-      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0.4, 1],
-      "name": "Plane.001"
-    },
-    {
-      "mesh": 1,
-      "name": "Plane.001_Material.003_0"
-    }
-  ],
-  "scene": 0,
-  "scenes": [
-    {
-      "name": "Sketchfab_Scene",
-      "nodes": [0]
     }
   ]
 }

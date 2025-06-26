@@ -59,7 +59,7 @@ export const loadPawn = (model) => {
   const pawnTilesBlack = ["a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7"];
 
   for (const tile of pawnTilesWhite) {
-    createPawnInstance(model, tile, TEXTURES.marble, PIECES.white);
+    createPawnInstance(model, tile, TEXTURES.wood, PIECES.white);
   }
   for (const tile of pawnTilesBlack) {
     createPawnInstance(model, tile, TEXTURES.wood, PIECES.black);

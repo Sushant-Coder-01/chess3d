@@ -38,26 +38,24 @@ export const createBishopInstance = (
     if (child.isMesh && !mesh) mesh = child;
   });
   mesh.material = mesh.material.clone();
-
   // Center geometry before texture loads
   centerGeometry(mesh);
 
   // Load texture and apply everything after it's loaded
   loader.load(textureType, (texture) => {
-    // mesh.material = new MeshStandardMaterial({ map: texture });
+    mesh.material = new MeshStandardMaterial({ map: texture });
     mesh.material = new MeshStandardMaterial({
       color: color,
       metalness: 0.1,
       roughness: 0.5,
     });
+    mesh.material.map = texture;
 
-    // mesh.material.needsUpdate = true;
+    mesh.material.needsUpdate = true;
 
-    // Apply transform to parent model
     model.position.copy(tile.position);
-    model.position.y = 0.95;
-    model.scale.set(0.0003, 0.0003, 0.0003);
-    model.setRotationFromEuler(new Euler(-Math.PI / 2, 0, 0));
+    model.position.y = 0.9;
+    model.scale.set(20, 20, 20);
 
     model.name = `Bishop_${tileName}`;
 
@@ -68,8 +66,8 @@ export const createBishopInstance = (
 };
 
 export const loadBishop = (model) => {
-  createBishopInstance(model, "C1", TEXTURES.marble, PIECES.white); // White
-  createBishopInstance(model, "F1", TEXTURES.marble, PIECES.white); // White
+  createBishopInstance(model, "C1", TEXTURES.wood, PIECES.white); // White
+  createBishopInstance(model, "F1", TEXTURES.wood, PIECES.white); // White
   createBishopInstance(model, "C8", TEXTURES.wood, PIECES.black); // Black
   createBishopInstance(model, "F8", TEXTURES.wood, PIECES.black); // Black
 };

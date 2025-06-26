@@ -1,10 +1,4 @@
-import {
-  Vector3,
-  MeshStandardMaterial,
-  TextureLoader,
-  Box3,
-  Box3Helper,
-} from "three";
+import { Vector3, MeshStandardMaterial, TextureLoader } from "three";
 import { scene } from "../scene";
 import { tileFromChessNotation } from "../tiles";
 import { PIECES, TEXTURES } from "../constant";
@@ -14,6 +8,7 @@ export const knights = {};
 
 const loader = new TextureLoader();
 
+// Center the geometry to make sure it's positioned correctly
 const centerGeometry = (mesh) => {
   mesh.geometry.computeBoundingBox();
   const box = mesh.geometry.boundingBox;
@@ -22,6 +17,7 @@ const centerGeometry = (mesh) => {
   mesh.geometry.translate(-center.x, -center.y, -center.z);
 };
 
+// Create the knight model for each tile
 const createKnightInstance = (
   originalModel,
   tileName,
@@ -29,59 +25,54 @@ const createKnightInstance = (
   color,
   pose
 ) => {
-  const tile = tileFromChessNotation(tileName);
+  const tile = tileFromChessNotation(tileName); // Get the tile position
 
   const model = originalModel.clone();
 
   model.traverse((child) => {
     if (child.isMesh) {
-      if (child.name === "Vert004_Material003_0") {
-        child.scale.set(1, 1, 1);
-
-        child.material = child.material.clone();
-
-        centerGeometry(child);
-      }
-      if (child.name === "Plane001_Material003_0") {
-        child.scale.set(1, 1, 1);
-        child.position.z = 0.25;
-        child.material = child.material.clone();
-        centerGeometry(child);
-      }
+      centerGeometry(child);
 
       loader.load(textureType, (texture) => {
+        child.material = new MeshStandardMaterial({ map: texture });
         child.material = new MeshStandardMaterial({
           color: color,
+          metalness: 0.1,
+          roughness: 0.5,
         });
+        child.material.map = texture;
         child.material.needsUpdate = true;
       });
     }
   });
 
+  // Position the knight on the chessboard
   model.position.copy(tile.position);
-  model.position.y = 0.5;
-  model.scale.set(0.8, 0.8, 0.8);
+  model.position.y = 0.89; // Position the model slightly above the board surface
+  model.scale.set(0.35, 0.35, 0.35); // Scale the model to fit the chessboard
 
+  // // Adjust rotation based on the knight's color
   if (pose === "black") {
-    model.rotation.set(-Math.PI / 2, 0, Math.PI / 2);
+    model.rotation.set(-Math.PI / 2, 0, Math.PI / 2); // Black knight orientation
   } else {
-    model.rotation.set(-Math.PI / 2, 0, -Math.PI / 2);
+    model.rotation.set(-Math.PI / 2, 0, -Math.PI / 2); // Black knight orientation
   }
 
-  model.name = `Knight_${tileName}`;
+  model.name = `Knight_${tileName}`; // Set a unique name for the knight
 
+  // Add the knight model to the scene
   scene.add(model);
 
-  knights[tileName] = model;
+  knights[tileName] = model; // Store the knight for future reference
 };
 
+// Load knight models for both white and black pieces
 export const loadKnight = (model) => {
-  // Create white knights
+  // Create white knights on their respective tiles
+  createKnightInstance(model, "b1", TEXTURES.wood, PIECES.white, "white"); // White Knight (b1)
+  createKnightInstance(model, "g1", TEXTURES.wood, PIECES.white, "white"); // White Knight (g1)
 
-  createKnightInstance(model, "b1", TEXTURES.marble, PIECES.white, "white"); // White Knight (b1)
-  createKnightInstance(model, "g1", TEXTURES.marble, PIECES.white, "white"); // White Knight (g1)
-
-  // Create black knights
+  // Create black knights on their respective tiles
   createKnightInstance(model, "b8", TEXTURES.wood, PIECES.black, "black"); // Black Knight (b8)
   createKnightInstance(model, "g8", TEXTURES.wood, PIECES.black, "black"); // Black Knight (g8)
 };

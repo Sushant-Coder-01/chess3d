@@ -16,13 +16,7 @@ const centerGeometry = (mesh) => {
   mesh.geometry.translate(-center.x, -center.y, -center.z);
 };
 
-const createQueenInstance = (
-  originalModel,
-  tileName,
-  textureType,
-  color,
-  pose
-) => {
+const createQueenInstance = (originalModel, tileName, textureType, color) => {
   const tile = tileFromChessNotation(tileName);
 
   const model = originalModel.clone();
@@ -34,21 +28,32 @@ const createQueenInstance = (
   });
   mesh.material.color.set(color);
 
-  model.position.copy(tile.position);
-  model.position.y = 1;
-  model.scale.set(0.65, 0.65, 0.65);
+  loader.load(textureType, (texture) => {
+    mesh.material = new MeshStandardMaterial({ map: texture });
+    mesh.material = new MeshStandardMaterial({
+      color: color,
+      metalness: 0.1,
+      roughness: 0.5,
+    });
+    mesh.material.map = texture;
 
-  model.name = `Queen_${tileName}`;
+    mesh.material.needsUpdate = true;
+    model.position.copy(tile.position);
+    model.position.y = 0.3;
+    model.scale.set(0.12, 0.12, 0.12);
 
-  scene.add(model);
+    model.name = `Queen_${tileName}`;
 
-  queens[tileName] = model;
+    scene.add(model);
+
+    queens[tileName] = model;
+  });
 };
 
 export const loadQueen = (model) => {
   // Create white queens
-  createQueenInstance(model, "d1", TEXTURES.marble, PIECES.white, "white"); // White Queen (d1)
+  createQueenInstance(model, "d1", TEXTURES.wood, PIECES.white); // White Queen (d1)
 
   // Create black queens
-  createQueenInstance(model, "d8", TEXTURES.wood, PIECES.black, "black"); // Black Queen (d8)
+  createQueenInstance(model, "d8", TEXTURES.wood, PIECES.black); // Black Queen (d8)
 };

@@ -1,11 +1,11 @@
 Model Information:
-* title:	Rook STL
-* source:	https://sketchfab.com/3d-models/rook-stl-f6e3937e1a0d4add9348cb5e4fc8526d
-* author:	Robbie.Mclaughlin (https://sketchfab.com/Robbie.Mclaughlin)
+* title:	Rook Chess piece
+* source:	https://sketchfab.com/3d-models/rook-chess-piece-c096a7cfa1934f58b0ef7550057775f8
+* author:	syeds shoaib (https://sketchfab.com/syeds)
 
 Model License:
 * license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 * requirements:	Author must be credited. Commercial use is allowed.
 
 If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Rook STL" (https://sketchfab.com/3d-models/rook-stl-f6e3937e1a0d4add9348cb5e4fc8526d) by Robbie.Mclaughlin (https://sketchfab.com/Robbie.Mclaughlin) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+This work is based on "Rook Chess piece" (https://sketchfab.com/3d-models/rook-chess-piece-c096a7cfa1934f58b0ef7550057775f8) by syeds shoaib (https://sketchfab.com/syeds) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
