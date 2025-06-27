@@ -20,9 +20,6 @@ function createBoard(scene) {
     chessBoardMesh.material = material;
 
     scene.add(chessBoardMesh);
-
-    // Add tiles
-    createTiles(scene);
   });
 }
 

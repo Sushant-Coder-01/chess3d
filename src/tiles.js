@@ -10,10 +10,6 @@ const tileGeometry = new THREE.BoxGeometry(TILE_SIZE, TILE_HEIGHT, TILE_SIZE);
 // Exported 2D grid for external use
 export const tileGrid = [];
 
-let lastHighlighted = null;
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-
 export const createTiles = (scene) => {
   const columns = ["A", "B", "C", "D", "E", "F", "G", "H"]; // Column names
 
@@ -37,6 +33,7 @@ export const createTiles = (scene) => {
 
       // Create label sprite for each tile
       const sprite = createLabel(tile.name);
+
       sprite.position.set(
         tile.position.x,
         tile.position.y + 0.06,
@@ -50,9 +47,6 @@ export const createTiles = (scene) => {
 
     tileGrid.push(rowTiles);
   }
-
-  // Register click interaction
-  window.addEventListener("click", handleTileClick(scene));
 };
 
 function createLabel(text) {
@@ -73,38 +67,6 @@ function createLabel(text) {
   const sprite = new THREE.Sprite(material);
 
   return sprite;
-}
-
-function handleTileClick(scene) {
-  return function (event) {
-    // Convert mouse to normalized device coordinates
-    mouse.x = (event.clientX / sizes.width) * 2 - 1;
-    mouse.y = -(event.clientY / sizes.height) * 2 + 1;
-
-    raycaster.setFromCamera(mouse, camera);
-
-    // Intersect with all scene objects
-    const intersects = raycaster.intersectObjects(scene.children);
-
-    if (intersects.length > 0) {
-      const clicked = intersects[0].object;
-      if (clicked.name.startsWith("tile")) {
-        highlightTile(clicked);
-      }
-    }
-  };
-}
-
-function highlightTile(tile) {
-  // Restore previous tile color
-  if (lastHighlighted) {
-    lastHighlighted.material.color.set(lastHighlighted.originalColor);
-  }
-
-  // Save original color and highlight
-  tile.originalColor = tile.material.color.getHex();
-  tile.material.color.set("#E99F51"); // cyan
-  lastHighlighted = tile;
 }
 
 export const tileFromChessNotation = (tileName) => {

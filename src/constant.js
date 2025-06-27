@@ -22,3 +22,7 @@ export const TEXTURES = {
 export const BOARDCOLOR = {
   color: "#EEEED2",
 };
+
+export const SELECTMODEL = {
+  color: "#fc862b",
+};

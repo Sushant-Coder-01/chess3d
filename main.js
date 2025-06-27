@@ -4,6 +4,8 @@ import { setupControls } from "./src/controls.js";
 import { animate } from "./src/animate.js";
 import loadModels from "./src/pieces/loadModels.js";
 import { lightning } from "./src/lightning.js";
+import { createTiles } from "./src/tiles.js";
+import { selectModels } from "./src/selectModels.js";
 
 // lighning
 lightning();
@@ -11,8 +13,14 @@ lightning();
 // Add board
 createBoard(scene);
 
+// Add tiles
+createTiles(scene);
+
 // loadModels
 loadModels();
+
+// select the model and tiles
+selectModels();
 
 // Setup controls
 setupControls(camera, canvas);
