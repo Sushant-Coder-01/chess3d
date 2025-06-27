@@ -1,6 +1,6 @@
 export const PIECES = {
   white: "#EEEED2", // Soft cream-white (visible on both tiles)
-  black: "#3C3C3C", // Deep brownish-black (not pure black, elegant on brown)
+  black: "#666666", // Deep brownish-black (not pure black, elegant on brown)
 };
 
 export const TILES = {
@@ -16,4 +16,9 @@ export const TEXTURES = {
   marble: "/textures/marble.jpg",
   wood: "/textures/wood.jpg",
   metal: "/textures/metal.jpg",
+  woodBaseColor: "/textures/wood_baseColor.png",
+};
+
+export const BOARDCOLOR = {
+  color: "#EEEED2",
 };

@@ -49,12 +49,13 @@ export const createBishopInstance = (
       metalness: 0.1,
       roughness: 0.5,
     });
+
     mesh.material.map = texture;
 
     mesh.material.needsUpdate = true;
 
     model.position.copy(tile.position);
-    model.position.y = 0.9;
+    model.position.y = 0.88;
     model.scale.set(20, 20, 20);
 
     model.name = `Bishop_${tileName}`;

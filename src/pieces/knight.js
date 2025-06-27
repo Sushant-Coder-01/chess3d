@@ -25,7 +25,7 @@ const createKnightInstance = (
   color,
   pose
 ) => {
-  const tile = tileFromChessNotation(tileName); // Get the tile position
+  const tile = tileFromChessNotation(tileName);
 
   const model = originalModel.clone();
 
@@ -42,28 +42,28 @@ const createKnightInstance = (
         });
         child.material.map = texture;
         child.material.needsUpdate = true;
+
+        // Position the knight on the chessboard
+        model.position.copy(tile.position);
+        model.position.y = 0.88;
+        model.scale.set(0.35, 0.35, 0.35);
+
+        // Adjust rotation based on the knight's color
+        if (pose === "black") {
+          model.rotation.set(-Math.PI / 2, 0, Math.PI / 2);
+        } else {
+          model.rotation.set(-Math.PI / 2, 0, -Math.PI / 2);
+        }
+
+        model.name = `Knight_${tileName}`;
+
+        // Add the knight model to the scene
+        scene.add(model);
+
+        knights[tileName] = model;
       });
     }
   });
-
-  // Position the knight on the chessboard
-  model.position.copy(tile.position);
-  model.position.y = 0.89; // Position the model slightly above the board surface
-  model.scale.set(0.35, 0.35, 0.35); // Scale the model to fit the chessboard
-
-  // // Adjust rotation based on the knight's color
-  if (pose === "black") {
-    model.rotation.set(-Math.PI / 2, 0, Math.PI / 2); // Black knight orientation
-  } else {
-    model.rotation.set(-Math.PI / 2, 0, -Math.PI / 2); // Black knight orientation
-  }
-
-  model.name = `Knight_${tileName}`; // Set a unique name for the knight
-
-  // Add the knight model to the scene
-  scene.add(model);
-
-  knights[tileName] = model; // Store the knight for future reference
 };
 
 // Load knight models for both white and black pieces

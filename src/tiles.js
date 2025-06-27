@@ -37,7 +37,11 @@ export const createTiles = (scene) => {
 
       // Create label sprite for each tile
       const sprite = createLabel(tile.name);
-      sprite.position.set(tile.position.x, tile.position.y, tile.position.z); // Place at top-left corner
+      sprite.position.set(
+        tile.position.x,
+        tile.position.y + 0.06,
+        tile.position.z
+      ); // Place at top-left corner
 
       scene.add(sprite);
 
@@ -55,12 +59,17 @@ function createLabel(text) {
   // Create a sprite with text as a label
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
-  context.font = "24px Arial";
+
+  context.font = "32px Sans-Serif";
+
   context.fillStyle = LABELS.color;
-  context.fillText(text, 50, 50, 100);
+  context.fillText(text, 50, 50, 50);
 
   const texture = new THREE.CanvasTexture(canvas);
-  const material = new THREE.SpriteMaterial({ map: texture });
+  const material = new THREE.SpriteMaterial({
+    map: texture,
+  });
+
   const sprite = new THREE.Sprite(material);
 
   return sprite;
