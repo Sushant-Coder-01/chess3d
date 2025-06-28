@@ -1,10 +1,13 @@
-import { Raycaster, Vector2 } from "three";
 import { camera, scene, sizes } from "./scene";
 import { SELECTMODEL } from "./constant";
+import { tileFromChessNotation } from "./tiles";
+import * as THREE from "three";
 
-let lastHighlighted = null;
-const raycaster = new Raycaster();
-const mouse = new Vector2();
+let lastHighlightedTile = null;
+let lastHighlightedModel = null;
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
 
 export function getTopModelParent(object) {
   let current = object;
@@ -23,19 +26,50 @@ export const selectModels = () => {
 
 function handleTileClick(scene) {
   return function (event) {
-    // Convert mouse to normalized device coordinates
     mouse.x = (event.clientX / sizes.width) * 2 - 1;
     mouse.y = -(event.clientY / sizes.height) * 2 + 1;
 
     raycaster.setFromCamera(mouse, camera);
-    // Intersect with all scene objects
-    const intersects = raycaster.intersectObjects(scene.children);
+    const intersects = raycaster.intersectObjects(scene.children, true);
+
     if (intersects.length > 0) {
       const clicked = intersects[0].object;
       const model = getTopModelParent(clicked);
-      console.log(model);
 
-      if (clicked.name.startsWith("")) {
+      const modelName = model.name;
+      const isPiece =
+        modelName.startsWith("Knight_") ||
+        modelName.startsWith("Rook_") ||
+        modelName.startsWith("Pawn_") ||
+        modelName.startsWith("King_") ||
+        modelName.startsWith("Queen_") ||
+        modelName.startsWith("Bishop_");
+
+      // Toggle off if same model or tile clicked again
+      if (
+        (lastHighlightedModel && lastHighlightedModel === model) ||
+        (lastHighlightedTile && lastHighlightedTile === clicked)
+      ) {
+        clearPreviousHighlights();
+        return;
+      }
+
+      // Clear previous model/tile highlights
+      clearPreviousHighlights();
+
+      if (isPiece) {
+        const tileName = modelName.split("_")[1];
+        const tile = tileFromChessNotation(tileName);
+
+        SELECTMODEL.current = model;
+
+        highlightTile(tile); // Now tile is highlighted
+        highlightModel(model); // Now model group is highlighted (toggled)
+      }
+
+      // Handle direct tile clicks (like "g1")
+      const isTile = /^[a-h][1-8]$/i.test(clicked.name);
+      if (isTile) {
         highlightTile(clicked);
       }
     }
@@ -43,14 +77,71 @@ function handleTileClick(scene) {
 }
 
 function highlightTile(tile) {
-  // Restore previous tile color
-  if (lastHighlighted) {
-    lastHighlighted.material.color.set(lastHighlighted.originalColor);
-  }
+  if (!tile) return;
 
-  // Save original color and highlight
+  // Toggle tile highlight
+  if (lastHighlightedTile === tile) {
+    restoreTile(tile);
+    lastHighlightedTile = null;
+  } else {
+    if (lastHighlightedTile) restoreTile(lastHighlightedTile);
+    saveAndSetTile(tile);
+    lastHighlightedTile = tile;
+  }
+}
+
+function highlightModel(model) {
+  if (!model) return;
+
+  // Toggle model highlight
+  if (lastHighlightedModel === model) {
+    restoreModel(model);
+    lastHighlightedModel = null;
+  } else {
+    if (lastHighlightedModel) restoreModel(lastHighlightedModel);
+    saveAndSetModel(model);
+    lastHighlightedModel = model;
+  }
+}
+
+function saveAndSetTile(tile) {
   tile.originalColor = tile.material.color.getHex();
   tile.material.color.set(SELECTMODEL.color);
+}
 
-  lastHighlighted = tile;
+function restoreTile(tile) {
+  tile.material.color.set(tile.originalColor);
+}
+
+function saveAndSetModel(model) {
+  model.traverse((child) => {
+    if (child.isMesh) {
+      child.originalColor = child.material.color.getHex();
+      child.material.color.set(SELECTMODEL.color);
+    }
+  });
+}
+
+function restoreModel(model) {
+  model.traverse((child) => {
+    if (child.isMesh && child.originalColor !== undefined) {
+      child.material.color.set(child.originalColor);
+    }
+  });
+}
+
+function clearPreviousHighlights() {
+  if (lastHighlightedTile) {
+    lastHighlightedTile.material.color.set(lastHighlightedTile.originalColor);
+    lastHighlightedTile = null;
+  }
+
+  if (lastHighlightedModel) {
+    lastHighlightedModel.traverse((child) => {
+      if (child.isMesh && child.originalColor !== undefined) {
+        child.material.color.set(child.originalColor);
+      }
+    });
+    lastHighlightedModel = null;
+  }
 }

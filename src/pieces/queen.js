@@ -51,8 +51,8 @@ const createQueenInstance = (originalModel, tileName, textureType, color) => {
 
 export const loadQueen = (model) => {
   // Create white queens
-  createQueenInstance(model, "d1", TEXTURES.wood, PIECES.white); // White Queen (d1)
+  createQueenInstance(model, "D1", TEXTURES.wood, PIECES.white); // White Queen (d1)
 
   // Create black queens
-  createQueenInstance(model, "d8", TEXTURES.wood, PIECES.black); // Black Queen (d8)
+  createQueenInstance(model, "D8", TEXTURES.wood, PIECES.black); // Black Queen (d8)
 };

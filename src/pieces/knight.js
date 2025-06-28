@@ -62,10 +62,10 @@ const createKnightInstance = async (
 // Load knight models for both white and black pieces
 export const loadKnight = async (model) => {
   // Create white knights on their respective tiles
-  await createKnightInstance(model, "b1", TEXTURES.wood, PIECES.white, "white"); // White Knight (b1)
-  await createKnightInstance(model, "g1", TEXTURES.wood, PIECES.white, "white"); // White Knight (g1)
+  await createKnightInstance(model, "B1", TEXTURES.wood, PIECES.white, "white"); // White Knight (b1)
+  await createKnightInstance(model, "G1", TEXTURES.wood, PIECES.white, "white"); // White Knight (g1)
 
   // Create black knights on their respective tiles
-  await createKnightInstance(model, "b8", TEXTURES.wood, PIECES.black, "black"); // Black Knight (b8)
-  await createKnightInstance(model, "g8", TEXTURES.wood, PIECES.black, "black"); // Black Knight (g8)
+  await createKnightInstance(model, "B8", TEXTURES.wood, PIECES.black, "black"); // Black Knight (b8)
+  await createKnightInstance(model, "G8", TEXTURES.wood, PIECES.black, "black"); // Black Knight (g8)
 };

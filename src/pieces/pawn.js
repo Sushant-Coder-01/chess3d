@@ -55,8 +55,8 @@ const createPawnInstance = (originalModel, tileName, textureType, color) => {
 };
 
 export const loadPawn = (model) => {
-  const pawnTilesWhite = ["a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2"];
-  const pawnTilesBlack = ["a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7"];
+  const pawnTilesWhite = ["A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2"];
+  const pawnTilesBlack = ["A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7"];
 
   for (const tile of pawnTilesWhite) {
     createPawnInstance(model, tile, TEXTURES.wood, PIECES.white);
