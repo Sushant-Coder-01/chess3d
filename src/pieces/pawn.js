@@ -49,6 +49,14 @@ const createPawnInstance = (originalModel, tileName, textureType, color) => {
     model.scale.set(0.2, 0.2, 0.2);
 
     model.name = `Pawn_${tileName}`;
+
+    model.userData = {
+      pieceType: "pawn",
+      color: color,
+      tileName: tileName,
+      initialPosition: tile.position.clone(),
+    };
+
     scene.add(model);
     pawns[tileName] = model;
   });

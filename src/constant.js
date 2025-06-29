@@ -25,4 +25,5 @@ export const BOARDCOLOR = {
 
 export const SELECTMODEL = {
   color: "#fc862b",
+  validTileColor: "white",
 };

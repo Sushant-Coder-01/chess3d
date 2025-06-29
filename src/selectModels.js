@@ -2,9 +2,12 @@ import { camera, scene, sizes } from "./scene";
 import { SELECTMODEL } from "./constant";
 import { tileFromChessNotation } from "./tiles";
 import * as THREE from "three";
+import getValidPawnMoves from "./validatePiecesMoves.js/pawn";
+import { getBoardState } from "./boardState";
 
 let lastHighlightedTile = null;
 let lastHighlightedModel = null;
+let highlightedValidTiles = [];
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -20,8 +23,6 @@ export function getTopModelParent(object) {
 export const selectModels = () => {
   // Register click interaction
   window.addEventListener("click", handleTileClick(scene));
-
-  handleTileClick(scene);
 };
 
 function handleTileClick(scene) {
@@ -63,8 +64,20 @@ function handleTileClick(scene) {
 
         SELECTMODEL.current = model;
 
-        highlightTile(tile); // Now tile is highlighted
-        highlightModel(model); // Now model group is highlighted (toggled)
+        highlightTile(tile); // Highlight the selected tile
+        highlightModel(model); // Highlight the selected model
+
+        // Validate possible moves
+        const [type, tilePos] = model.name.split("_");
+        const boardState = getBoardState();
+        const validTiles = getValidPawnMoves(
+          tilePos,
+          model.userData,
+          boardState
+        );
+
+        // Highlight valid moves
+        highlightValidMoves(validTiles);
       }
 
       // Handle direct tile clicks (like "g1")
@@ -144,4 +157,25 @@ function clearPreviousHighlights() {
     });
     lastHighlightedModel = null;
   }
+
+  // Clear valid tile highlights
+  highlightedValidTiles.forEach((tile) => restoreTile(tile));
+  highlightedValidTiles = [];
+}
+
+function highlightValidMoves(validTiles) {
+  validTiles.forEach((tilePos) => {
+    const tile = tileFromChessNotation(tilePos);
+    saveAndSetTile(tile); // Highlight the valid tile
+    highlightedValidTiles.push(tile); // Store the highlighted valid tiles
+  });
+}
+
+function moveModelToValidTile(model, validTile) {
+  // Move the model to the selected valid tile
+  const tilePosition = tileFromChessNotation(validTile).position;
+  model.position.copy(tilePosition);
+  restoreTile(lastHighlightedTile);
+  lastHighlightedTile = null;
+  clearPreviousHighlights();
 }
