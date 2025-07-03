@@ -1,9 +1,10 @@
 import { camera, scene, sizes } from "./scene";
-import { SELECTMODEL } from "./constant";
+import { SELECTMODEL, STATE } from "./constant";
 import { tileFromChessNotation } from "./tiles";
 import * as THREE from "three";
-import getValidPawnMoves from "./validatePiecesMoves.js/pawn";
 import { getBoardState } from "./boardState";
+import { movePieceToTile } from "./utils/movePiece";
+import { pieceMoveValidators } from "./validatePiecesMoves.js";
 
 let lastHighlightedTile = null;
 let lastHighlightedModel = null;
@@ -46,42 +47,55 @@ function handleTileClick(scene) {
         modelName.startsWith("Queen_") ||
         modelName.startsWith("Bishop_");
 
-      // Toggle off if same model or tile clicked again
+      const isTile = /^[a-h][1-8]$/i.test(clicked.name);
+
+      // 🟡 Step 1: Move model if a valid tile is clicked
+
+      if (isTile && highlightedValidTiles.includes(clicked)) {
+        if (STATE.currentModel) {
+          moveModelToValidTile(STATE.currentModel, clicked);
+          STATE.currentModel = null;
+        }
+        return;
+      }
+
+      // 🟡 Step 2: Toggle off if same model or tile clicked again
       if (
         (lastHighlightedModel && lastHighlightedModel === model) ||
         (lastHighlightedTile && lastHighlightedTile === clicked)
       ) {
         clearPreviousHighlights();
+        STATE.currentModel = null;
         return;
       }
 
-      // Clear previous model/tile highlights
+      // 🟡 Step 3: Clear highlights
       clearPreviousHighlights();
 
+      // 🟡 Step 4: Piece click → highlight moves
       if (isPiece) {
         const tileName = modelName.split("_")[1];
         const tile = tileFromChessNotation(tileName);
 
-        SELECTMODEL.current = model;
+        STATE.currentModel = model;
+        highlightTile(tile); // selected tile
+        highlightModel(model); // selected model
 
-        highlightTile(tile); // Highlight the selected tile
-        highlightModel(model); // Highlight the selected model
-
-        // Validate possible moves
+        // Get moves
         const [type, tilePos] = model.name.split("_");
         const boardState = getBoardState();
-        const validTiles = getValidPawnMoves(
-          tilePos,
-          model.userData,
-          boardState
-        );
 
-        // Highlight valid moves
-        highlightValidMoves(validTiles);
+        const moveValidator = pieceMoveValidators[type];
+
+        if (moveValidator) {
+          const validTiles = moveValidator(tilePos, model.userData, boardState);
+          highlightValidMoves(validTiles);
+        }
+
+        return;
       }
 
-      // Handle direct tile clicks (like "g1")
-      const isTile = /^[a-h][1-8]$/i.test(clicked.name);
+      // 🟡 Step 5: Only tile clicked (not a valid move or model) → highlight tile
       if (isTile) {
         highlightTile(clicked);
       }
@@ -164,18 +178,23 @@ function clearPreviousHighlights() {
 }
 
 function highlightValidMoves(validTiles) {
+  const VALID_MOVE_COLOR = 0x00ff00; // Green
+
   validTiles.forEach((tilePos) => {
     const tile = tileFromChessNotation(tilePos);
-    saveAndSetTile(tile); // Highlight the valid tile
-    highlightedValidTiles.push(tile); // Store the highlighted valid tiles
+    saveAndSetTileWithColor(tile, VALID_MOVE_COLOR);
+    highlightedValidTiles.push(tile);
   });
 }
 
-function moveModelToValidTile(model, validTile) {
-  // Move the model to the selected valid tile
-  const tilePosition = tileFromChessNotation(validTile).position;
-  model.position.copy(tilePosition);
-  restoreTile(lastHighlightedTile);
-  lastHighlightedTile = null;
-  clearPreviousHighlights();
+function saveAndSetTileWithColor(tile, color) {
+  tile.originalColor = tile.material.color.getHex();
+  tile.material.color.set(color);
+}
+
+function moveModelToValidTile(model, tile) {
+  movePieceToTile(model, tile, () => {
+    clearPreviousHighlights();
+    lastHighlightedTile = null;
+  });
 }

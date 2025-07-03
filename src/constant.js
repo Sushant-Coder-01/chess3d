@@ -27,3 +27,7 @@ export const SELECTMODEL = {
   color: "#fc862b",
   validTileColor: "white",
 };
+
+export const STATE = {
+  currentModel: null, // holds the selected model
+};
