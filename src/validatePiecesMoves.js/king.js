@@ -8,7 +8,6 @@ const getValidKingMoves = (currentPosition, modelUserData, boardState) => {
 
   const color = modelUserData.color;
 
-  // 8 directions
   const directions = [
     [+1, 0], // E
     [-1, 0], // W

@@ -32,9 +32,9 @@ const getValidBishopMoves = (currentPosition, modelUserData, boardState) => {
         validMoves.push(newPos);
       } else {
         if (occupant.color !== color) {
-          validMoves.push(newPos); // capture
+          validMoves.push(newPos);
         }
-        break; // blocked
+        break;
       }
     }
   }

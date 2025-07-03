@@ -8,7 +8,6 @@ const getValidKnightMoves = (currentPosition, modelUserData, boardState) => {
 
   const color = modelUserData.color;
 
-  // All 8 possible L-shaped moves for a Knight
   const knightMoves = [
     [+2, +1],
     [+2, -1], // Two squares forward and one square left or right
