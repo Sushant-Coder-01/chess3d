@@ -30,15 +30,12 @@ const getValidKingMoves = (currentPosition, modelUserData, boardState) => {
       newRank < 1 ||
       newRank > 8
     ) {
-      continue; // out of board
+      continue;
     }
 
     const newPos = `${files[fileIndex]}${newRank}`;
     const occupant = boardState[newPos];
-    const model = boardState[newPos];
-    console.log(model);
 
-    // ✅ Can move if empty or opponent's piece
     if (!occupant || occupant.color !== color) {
       validMoves.push(newPos);
     }
