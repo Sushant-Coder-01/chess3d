@@ -43,6 +43,14 @@ const createQueenInstance = (originalModel, tileName, textureType, color) => {
     model.scale.set(0.12, 0.12, 0.12);
 
     model.name = `Queen_${tileName}`;
+
+    model.userData = {
+      pieceType: "queen",
+      color: color,
+      tileName: tileName,
+      initialPosition: tile.position.clone(),
+    };
+
     scene.add(model);
 
     queens[tileName] = model;

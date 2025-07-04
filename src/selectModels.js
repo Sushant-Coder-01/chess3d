@@ -22,7 +22,6 @@ export function getTopModelParent(object) {
 }
 
 export const selectModels = () => {
-  // Register click interaction
   window.addEventListener("click", handleTileClick(scene));
 };
 
@@ -49,7 +48,7 @@ function handleTileClick(scene) {
 
       const isTile = /^[a-h][1-8]$/i.test(clicked.name);
 
-      // 🟡 Step 1: Move model if a valid tile is clicked
+      // Step 1: Move model if a valid tile is clicked
 
       if (isTile && highlightedValidTiles.includes(clicked)) {
         if (STATE.currentModel) {
@@ -59,7 +58,7 @@ function handleTileClick(scene) {
         return;
       }
 
-      // 🟡 Step 2: Toggle off if same model or tile clicked again
+      // Step 2: Toggle off if same model or tile clicked again
       if (
         (lastHighlightedModel && lastHighlightedModel === model) ||
         (lastHighlightedTile && lastHighlightedTile === clicked)
@@ -69,10 +68,10 @@ function handleTileClick(scene) {
         return;
       }
 
-      // 🟡 Step 3: Clear highlights
+      // Step 3: Clear highlights
       clearPreviousHighlights();
 
-      // 🟡 Step 4: Piece click → highlight moves
+      // Step 4: Piece click → highlight moves
       if (isPiece) {
         const tileName = modelName.split("_")[1];
         const tile = tileFromChessNotation(tileName);
@@ -88,6 +87,7 @@ function handleTileClick(scene) {
         const moveValidator = pieceMoveValidators[type];
 
         if (moveValidator) {
+          console.log(model);
           const validTiles = moveValidator(tilePos, model.userData, boardState);
           highlightValidMoves(validTiles);
         }
@@ -95,7 +95,7 @@ function handleTileClick(scene) {
         return;
       }
 
-      // 🟡 Step 5: Only tile clicked (not a valid move or model) → highlight tile
+      // Step 5: Only tile clicked (not a valid move or model) → highlight tile
       if (isTile) {
         highlightTile(clicked);
       }

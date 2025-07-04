@@ -38,6 +38,13 @@ const createKingInstance = (originalModel, tileName, textureType, color) => {
     mesh.name = `King_${tileName}`;
     model.name = `King_${tileName}`;
 
+    model.userData = {
+      pieceType: "king",
+      color: color,
+      tileName: tileName,
+      initialPosition: tile.position.clone(),
+    };
+
     scene.add(model);
 
     // Store the mesh in the kings object for easy reference

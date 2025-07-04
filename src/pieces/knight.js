@@ -54,6 +54,13 @@ const createKnightInstance = async (
   );
   model.name = `Knight_${tileName}`;
 
+  model.userData = {
+    pieceType: "knight",
+    color: color,
+    tileName: tileName,
+    initialPosition: tile.position.clone(),
+  };
+
   // Add to scene and object store
   scene.add(model);
   knights[tileName] = model;

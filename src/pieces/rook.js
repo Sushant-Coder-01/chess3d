@@ -57,6 +57,13 @@ export const createRookInstance = (
 
     model.name = `Rook_${tileName}`;
 
+    model.userData = {
+      pieceType: "rook",
+      color: color,
+      tileName: tileName,
+      initialPosition: tile.position.clone(),
+    };
+
     scene.add(model);
     rooks[tileName] = model;
   });
