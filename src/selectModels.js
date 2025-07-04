@@ -1,5 +1,6 @@
 import { camera, scene, sizes } from "./scene";
 import {
+  PIECES,
   SELECTMODEL,
   STATE,
   VALID_MOVE_COLOR,
@@ -10,6 +11,7 @@ import * as THREE from "three";
 import { getBoardState } from "./boardState";
 import { movePieceToTile } from "./utils/movePiece";
 import { pieceMoveValidators } from "./validatePiecesMoves.js";
+import isMoveLegal, { isKingInCheck } from "./kingInCheck.js";
 
 let lastHighlightedTile = null;
 let lastHighlightedModel = null;
@@ -52,11 +54,12 @@ function handleTileClick(scene) {
         modelName.startsWith("Bishop_");
 
       const isTile = /^[a-h][1-8]$/i.test(clicked.name);
-
+      const boardState = getBoardState();
       // Step 1: Move model if a valid tile is clicked
 
       if (isTile && highlightedValidTiles.includes(clicked)) {
         if (STATE.currentModel) {
+          isMoveLegal(STATE.currentModel, clicked, boardState);
           moveModelToValidTile(STATE.currentModel, clicked);
           STATE.currentModel = null;
         }
@@ -201,6 +204,13 @@ function saveAndSetTileWithColor(tile, color) {
 
 function moveModelToValidTile(model, tile) {
   movePieceToTile(model, tile, () => {
+    const opponentColor =
+      model.userData.color === PIECES.white ? PIECES.black : PIECES.white;
+    const info = isKingInCheck(opponentColor, getBoardState());
+    if (info?.isInCheck) {
+      console.log(`${info.king.model.name} is in CHECK!`);
+      // Optional: Show "Check" on UI
+    }
     clearPreviousHighlights();
     lastHighlightedTile = null;
   });
