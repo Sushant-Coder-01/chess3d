@@ -60,6 +60,13 @@ export const createBishopInstance = (
 
     model.name = `Bishop_${tileName}`;
 
+    model.userData = {
+      pieceType: "bishop",
+      color: color,
+      tileName: tileName,
+      initialPosition: tile.position.clone(),
+    };
+
     // Add to scene and store
     scene.add(model);
     bishops[tileName] = model;
