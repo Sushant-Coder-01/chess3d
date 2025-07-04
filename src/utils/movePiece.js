@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { SELECTMODEL } from "../constant";
+import { getBoardState } from "../boardState";
 
 export function playMoveSound() {
   const audio = new Audio("/sounds/preview.mp3");
@@ -29,12 +30,31 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
   const targetY = getYPositionForPiece(type);
   const originalColor = tile.originalColor;
 
-  gsap.to(model.position, {
-    x: tilePosition.x,
-    y: targetY,
-    z: tilePosition.z,
-    duration: 0.4,
-    ease: "power2.out",
+  const scene = model.parent;
+  const boardState = getBoardState();
+
+  // ✅ FIX: get model at destination tile
+  const capturedModel = boardState[tile.name];
+
+  // ✅ Knockout animation
+  const knockoutAnimation = (target) => {
+    gsap.to(target.model.rotation, {
+      z: Math.PI / 2,
+      duration: 0.3,
+      ease: "power2.inOut",
+    });
+    gsap.to(target.model.position, {
+      y: 0.2,
+      duration: 0.3,
+      ease: "power2.inOut",
+      onComplete: () => {
+        scene.remove(target.model);
+      },
+    });
+  };
+
+  // ✅ "Tup tup" step animation
+  const stepTimeline = gsap.timeline({
     onComplete: () => {
       model.name = newName;
       model.userData.currentPosition = tile.name;
@@ -49,4 +69,30 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
       onComplete();
     },
   });
+
+  const distance = model.position.distanceTo(tile.position);
+
+  const steps = distance.toFixed(0);
+  for (let i = 1; i <= steps; i++) {
+    const factor = i / steps;
+    stepTimeline.to(model.position, {
+      x: tilePosition.x * factor + model.position.x * (1 - factor),
+      z: tilePosition.z * factor + model.position.z * (1 - factor),
+      y: targetY + 0.2,
+      duration: 0.15,
+      ease: "power2.out",
+    });
+
+    stepTimeline.to(model.position, {
+      y: targetY,
+      duration: 0.1,
+      ease: "bounce.out",
+      onComplete: () => {
+        // ✅ Play knockout at the very end of the move
+        if (capturedModel) {
+          knockoutAnimation(capturedModel);
+        }
+      },
+    });
+  }
 }
