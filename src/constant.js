@@ -31,3 +31,7 @@ export const SELECTMODEL = {
 export const STATE = {
   currentModel: null, // holds the selected model
 };
+
+export const VALID_MOVE_COLOR = 0x00ff00; // Green
+
+export const VALID_MOVE_COLOR_WITH_ENEMY = "#FF0000"; // Green

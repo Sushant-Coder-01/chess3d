@@ -1,5 +1,10 @@
 import { camera, scene, sizes } from "./scene";
-import { SELECTMODEL, STATE } from "./constant";
+import {
+  SELECTMODEL,
+  STATE,
+  VALID_MOVE_COLOR,
+  VALID_MOVE_COLOR_WITH_ENEMY,
+} from "./constant";
 import { tileFromChessNotation } from "./tiles";
 import * as THREE from "three";
 import { getBoardState } from "./boardState";
@@ -87,7 +92,6 @@ function handleTileClick(scene) {
         const moveValidator = pieceMoveValidators[type];
 
         if (moveValidator) {
-          console.log(model);
           const validTiles = moveValidator(tilePos, model.userData, boardState);
           highlightValidMoves(validTiles);
         }
@@ -178,11 +182,14 @@ function clearPreviousHighlights() {
 }
 
 function highlightValidMoves(validTiles) {
-  const VALID_MOVE_COLOR = 0x00ff00; // Green
-
   validTiles.forEach((tilePos) => {
     const tile = tileFromChessNotation(tilePos);
-    saveAndSetTileWithColor(tile, VALID_MOVE_COLOR);
+    const info = getBoardState();
+    if (info[tilePos]) {
+      saveAndSetTileWithColor(tile, VALID_MOVE_COLOR_WITH_ENEMY);
+    } else {
+      saveAndSetTileWithColor(tile, VALID_MOVE_COLOR);
+    }
     highlightedValidTiles.push(tile);
   });
 }

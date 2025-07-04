@@ -6,8 +6,6 @@ const getValidBishopMoves = (currentPosition, modelUserData, boardState) => {
   const file = currentPosition[0];
   const rank = parseInt(currentPosition[1]);
 
-  console.log(modelUserData);
-
   const color = modelUserData.color;
 
   const directions = [
