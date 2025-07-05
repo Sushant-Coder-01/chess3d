@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { camera, sizes } from "./scene";
 import { LABELS, TILES } from "./constant";
 
 // Shared tile geometry
@@ -65,6 +64,7 @@ function createLabel(text) {
   });
 
   const sprite = new THREE.Sprite(material);
+  sprite.userData = { notation: text };
 
   return sprite;
 }

@@ -42,7 +42,17 @@ function handleTileClick(scene) {
 
     if (intersects.length > 0) {
       const clicked = intersects[0].object;
-      const model = getTopModelParent(clicked);
+      let obj = clicked;
+      if (obj.type === "Sprite") {
+        // Clicked on a label or 2D sprite
+        const tileName = obj.userData?.notation;
+        if (tileName) {
+          const tile = tileFromChessNotation(tileName);
+          obj = tile;
+        }
+      }
+
+      const model = getTopModelParent(obj);
 
       const modelName = model.name;
       const isPiece =
@@ -53,14 +63,14 @@ function handleTileClick(scene) {
         modelName.startsWith("Queen_") ||
         modelName.startsWith("Bishop_");
 
-      const isTile = /^[a-h][1-8]$/i.test(clicked.name);
+      const isTile = /^[a-h][1-8]$/i.test(obj.name);
       const boardState = getBoardState();
       // Step 1: Move model if a valid tile is clicked
 
-      if (isTile && highlightedValidTiles.includes(clicked)) {
+      if (isTile && highlightedValidTiles.includes(obj)) {
         if (STATE.currentModel) {
-          isMoveLegal(STATE.currentModel, clicked, boardState);
-          moveModelToValidTile(STATE.currentModel, clicked);
+          isMoveLegal(STATE.currentModel, obj, boardState);
+          moveModelToValidTile(STATE.currentModel, obj);
           STATE.currentModel = null;
         }
         return;
@@ -69,7 +79,7 @@ function handleTileClick(scene) {
       // Step 2: Toggle off if same model or tile clicked again
       if (
         (lastHighlightedModel && lastHighlightedModel === model) ||
-        (lastHighlightedTile && lastHighlightedTile === clicked)
+        (lastHighlightedTile && lastHighlightedTile === obj)
       ) {
         clearPreviousHighlights();
         STATE.currentModel = null;
@@ -102,9 +112,8 @@ function handleTileClick(scene) {
         return;
       }
 
-      // Step 5: Only tile clicked (not a valid move or model) → highlight tile
       if (isTile) {
-        highlightTile(clicked);
+        highlightTile(obj);
       }
     }
   };
