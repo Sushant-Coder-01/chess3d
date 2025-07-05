@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { SELECTMODEL } from "../constant";
+import { PIECES, SELECTMODEL } from "../constant";
 import { getBoardState } from "../boardState";
 
 export function playMoveSound() {
@@ -37,17 +37,19 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
 
   const knockoutAnimation = (target) => {
     gsap.to(target.model.rotation, {
-      z: Math.PI / 2,
+      z: 0,
       duration: 0.3,
       ease: "power2.inOut",
     });
     gsap.to(target.model.position, {
-      y: 0.2,
+      x: target.model.userData.color === PIECES.white ? -5 : 5,
+      y: 0.7,
+      z: 0,
       duration: 0.3,
       ease: "power2.inOut",
-      onComplete: () => {
-        scene.remove(target.model);
-      },
+      // onComplete: () => {
+      //   target.model.visible = false;
+      // },
     });
   };
 

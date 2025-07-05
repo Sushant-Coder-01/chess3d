@@ -34,4 +34,4 @@ export const STATE = {
 
 export const VALID_MOVE_COLOR = 0x00ff00; // Green
 
-export const VALID_MOVE_COLOR_WITH_ENEMY = "#FF0000"; // Green
+export const VALID_MOVE_COLOR_WITH_ENEMY = "#FF0000"; // Red
