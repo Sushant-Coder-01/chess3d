@@ -26,17 +26,15 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
 
   const tilePosition = tile.position.clone();
   const [type] = model.name.split("_");
+
   const newName = `${type}_${tile.name}`;
   const targetY = getYPositionForPiece(type);
   const originalColor = tile.originalColor;
 
   const scene = model.parent;
   const boardState = getBoardState();
-
-  // ✅ FIX: get model at destination tile
   const capturedModel = boardState[tile.name];
 
-  // ✅ Knockout animation
   const knockoutAnimation = (target) => {
     gsap.to(target.model.rotation, {
       z: Math.PI / 2,
@@ -53,7 +51,41 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
     });
   };
 
-  // ✅ "Tup tup" step animation
+  if (type === "Knight") {
+    gsap.to(model.position, {
+      x: tilePosition.x,
+      z: tilePosition.z,
+      y: targetY + 1,
+      duration: 0.25,
+      ease: "power2.out",
+      onComplete: () => {
+        gsap.to(model.position, {
+          y: targetY,
+          duration: 0.2,
+          ease: "bounce2.out",
+          onComplete: () => {
+            if (capturedModel) {
+              knockoutAnimation(capturedModel);
+            }
+
+            model.name = newName;
+            model.userData.currentPosition = tile.name;
+            playMoveSound();
+
+            tile.material.color.set(SELECTMODEL.color);
+            setTimeout(() => {
+              tile.material.color.set(originalColor);
+            }, 300);
+
+            onComplete();
+          },
+        });
+      },
+    });
+
+    return;
+  }
+
   const stepTimeline = gsap.timeline({
     onComplete: () => {
       model.name = newName;
@@ -75,8 +107,8 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
   const endX = tilePosition.x;
   const endZ = tilePosition.z;
 
-  const dx = Math.abs(tilePosition.x - model.position.x);
-  const dz = Math.abs(tilePosition.z - model.position.z);
+  const dx = Math.abs(endX - startX);
+  const dz = Math.abs(endZ - startZ);
   const steps = Math.max(dx, dz);
 
   for (let i = 1; i <= steps; i++) {
@@ -94,8 +126,7 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
       duration: 0.1,
       ease: "bounce.out",
       onComplete: () => {
-        // ✅ Play knockout at the very end of the move
-        if (capturedModel) {
+        if (i === steps && capturedModel) {
           knockoutAnimation(capturedModel);
         }
       },
