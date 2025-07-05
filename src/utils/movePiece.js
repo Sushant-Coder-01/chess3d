@@ -55,7 +55,7 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
     gsap.to(model.position, {
       x: tilePosition.x,
       z: tilePosition.z,
-      y: targetY + 1,
+      y: targetY + 0.5,
       duration: 0.25,
       ease: "power2.out",
       onComplete: () => {

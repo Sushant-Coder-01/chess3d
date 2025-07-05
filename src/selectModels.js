@@ -16,6 +16,7 @@ import isMoveLegal, { isKingInCheck } from "./kingInCheck.js";
 let lastHighlightedTile = null;
 let lastHighlightedModel = null;
 let highlightedValidTiles = [];
+const highlightedEnemyModels = [];
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -67,10 +68,22 @@ function handleTileClick(scene) {
       const boardState = getBoardState();
       // Step 1: Move model if a valid tile is clicked
 
-      if (isTile && highlightedValidTiles.includes(obj)) {
+      // Get the target tile (if clicked on piece, get its tile)
+      let targetTile = null;
+
+      if (isTile) {
+        targetTile = obj;
+      } else if (isPiece) {
+        // If clicked on a piece, get the tile it's standing on
+        const tileName = model.name.split("_")[1];
+        targetTile = tileFromChessNotation(tileName);
+      }
+
+      // If valid move → proceed to move
+      if (targetTile && highlightedValidTiles.includes(targetTile)) {
         if (STATE.currentModel) {
-          isMoveLegal(STATE.currentModel, obj, boardState);
-          moveModelToValidTile(STATE.currentModel, obj);
+          isMoveLegal(STATE.currentModel, targetTile, boardState);
+          moveModelToValidTile(STATE.currentModel, targetTile);
           STATE.currentModel = null;
         }
         return;
@@ -113,7 +126,26 @@ function handleTileClick(scene) {
       }
 
       if (isTile) {
-        highlightTile(obj);
+        // Get the piece at the clicked tile (from boardState)
+        const pieceAtTile = boardState[obj.name];
+        if (pieceAtTile) {
+          highlightTile(obj); // highlight the clicked tile
+          highlightModel(pieceAtTile.model); // highlight the piece on the tile
+          STATE.currentModel = pieceAtTile.model; // ✅ <== This is the missing part
+
+          // Get the piece's move validation
+          const [type, tilePos] = pieceAtTile.model.name.split("_");
+          const moveValidator = pieceMoveValidators[type];
+
+          if (moveValidator) {
+            const validTiles = moveValidator(
+              tilePos,
+              pieceAtTile.model.userData,
+              boardState
+            );
+            highlightValidMoves(validTiles); // highlight valid moves for the piece
+          }
+        }
       }
     }
   };
@@ -174,41 +206,87 @@ function restoreModel(model) {
 }
 
 function clearPreviousHighlights() {
-  if (lastHighlightedTile) {
-    lastHighlightedTile.material.color.set(lastHighlightedTile.originalColor);
+  // Clear last highlighted tile
+  if (lastHighlightedTile && lastHighlightedTile.originalColor) {
+    lastHighlightedTile.material.color.setHex(
+      lastHighlightedTile.originalColor
+    );
     lastHighlightedTile = null;
   }
 
+  // Clear last selected model highlight
   if (lastHighlightedModel) {
     lastHighlightedModel.traverse((child) => {
       if (child.isMesh && child.originalColor !== undefined) {
-        child.material.color.set(child.originalColor);
+        child.material.color.setHex(child.originalColor);
       }
     });
     lastHighlightedModel = null;
   }
 
-  // Clear valid tile highlights
-  highlightedValidTiles.forEach((tile) => restoreTile(tile));
-  highlightedValidTiles = [];
-}
-
-function highlightValidMoves(validTiles) {
-  validTiles.forEach((tilePos) => {
-    const tile = tileFromChessNotation(tilePos);
-    const info = getBoardState();
-    if (info[tilePos]) {
-      saveAndSetTileWithColor(tile, VALID_MOVE_COLOR_WITH_ENEMY);
-    } else {
-      saveAndSetTileWithColor(tile, VALID_MOVE_COLOR);
+  // Clear valid tile move highlights
+  highlightedValidTiles.forEach((tile) => {
+    if (tile.originalColor) {
+      tile.material.color.setHex(tile.originalColor);
     }
-    highlightedValidTiles.push(tile);
   });
+  highlightedValidTiles.length = 0;
+
+  // Clear enemy model highlights
+  highlightedEnemyModels.forEach(({ originalColors }) => {
+    originalColors.forEach(({ mesh, color }) => {
+      mesh.material.color.setHex(color);
+    });
+  });
+  highlightedEnemyModels.length = 0;
 }
 
 function saveAndSetTileWithColor(tile, color) {
   tile.originalColor = tile.material.color.getHex();
   tile.material.color.set(color);
+}
+
+function highlightEnemyModel(model) {
+  const originalColors = []; // store per mesh
+
+  model.traverse((child) => {
+    if (child.isMesh) {
+      originalColors.push({
+        mesh: child,
+        color: child.material.color.getHex(),
+      });
+
+      child.material.color.set(0xff0000); // red
+    }
+  });
+
+  highlightedEnemyModels.push({
+    model,
+    originalColors,
+  });
+}
+
+function highlightValidMoves(validTiles) {
+  const boardState = getBoardState(); // Call once
+
+  validTiles.forEach((tilePos) => {
+    const tile = tileFromChessNotation(tilePos);
+
+    if (boardState[tilePos]) {
+      // Tile occupied by enemy → highlight tile + model
+      saveAndSetTileWithColor(tile, VALID_MOVE_COLOR_WITH_ENEMY);
+
+      const model = boardState[tilePos].model;
+      if (model) {
+        highlightEnemyModel(model); // Highlight enemy model red
+      }
+    } else {
+      // Empty tile
+      saveAndSetTileWithColor(tile, VALID_MOVE_COLOR);
+    }
+
+    highlightedValidTiles.push(tile);
+  });
 }
 
 function moveModelToValidTile(model, tile) {
