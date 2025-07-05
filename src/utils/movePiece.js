@@ -70,14 +70,20 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
     },
   });
 
-  const distance = model.position.distanceTo(tile.position);
+  const startX = model.position.x;
+  const startZ = model.position.z;
+  const endX = tilePosition.x;
+  const endZ = tilePosition.z;
 
-  const steps = distance.toFixed(0);
+  const dx = Math.abs(tilePosition.x - model.position.x);
+  const dz = Math.abs(tilePosition.z - model.position.z);
+  const steps = Math.max(dx, dz);
+
   for (let i = 1; i <= steps; i++) {
     const factor = i / steps;
     stepTimeline.to(model.position, {
-      x: tilePosition.x * factor + model.position.x * (1 - factor),
-      z: tilePosition.z * factor + model.position.z * (1 - factor),
+      x: startX + (endX - startX) * factor,
+      z: startZ + (endZ - startZ) * factor,
       y: targetY + 0.2,
       duration: 0.15,
       ease: "power2.out",
