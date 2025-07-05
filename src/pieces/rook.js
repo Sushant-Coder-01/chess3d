@@ -55,6 +55,9 @@ export const createRookInstance = (
     model.scale.set(0.7, 0.7, 0.7);
     model.setRotationFromEuler(new Euler(-Math.PI / 2, 0, 0));
 
+    model.castShadow = true;
+    model.receiveShadow = true;
+
     model.name = `Rook_${tileName}`;
 
     model.userData = {

@@ -19,6 +19,8 @@ function createBoard(scene) {
 
     chessBoardMesh.material = material;
 
+    chessBoardMesh.receiveShadow = true;
+
     scene.add(chessBoardMesh);
   });
 }

@@ -42,6 +42,9 @@ const createQueenInstance = (originalModel, tileName, textureType, color) => {
     model.position.y = 0.3;
     model.scale.set(0.12, 0.12, 0.12);
 
+    model.castShadow = true;
+    model.receiveShadow = true;
+
     model.name = `Queen_${tileName}`;
 
     model.userData = {

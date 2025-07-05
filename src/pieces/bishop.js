@@ -58,6 +58,9 @@ export const createBishopInstance = (
     model.position.y = 0.88;
     model.scale.set(20, 20, 20);
 
+    model.castShadow = true;
+    model.receiveShadow = true;
+
     model.name = `Bishop_${tileName}`;
 
     model.userData = {

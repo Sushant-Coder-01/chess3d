@@ -23,6 +23,8 @@ const createKingInstance = (originalModel, tileName, textureType, color) => {
 
   model.position.copy(tile.position);
   model.position.y = 0.8;
+  model.castShadow = true;
+  model.receiveShadow = true;
 
   loader.load(textureType, (texture) => {
     mesh.material = new MeshStandardMaterial({ map: texture });

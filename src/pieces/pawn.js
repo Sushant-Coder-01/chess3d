@@ -48,6 +48,9 @@ const createPawnInstance = (originalModel, tileName, textureType, color) => {
     model.position.y = 0.7;
     model.scale.set(0.2, 0.2, 0.2);
 
+    model.castShadow = true;
+    model.receiveShadow = true;
+
     model.name = `Pawn_${tileName}`;
 
     model.userData = {

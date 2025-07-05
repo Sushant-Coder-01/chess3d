@@ -54,6 +54,9 @@ const createKnightInstance = async (
   );
   model.name = `Knight_${tileName}`;
 
+  model.castShadow = true;
+  model.receiveShadow = true;
+
   model.userData = {
     pieceType: "knight",
     color: color,
