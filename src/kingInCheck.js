@@ -26,7 +26,7 @@ function isMoveLegal(model, targetTile, boardState) {
 export function isKingInCheck(color, boardState) {
   const king = Object.values(boardState).find(
     (piece) =>
-      piece.model.name.startsWith("King") &&
+      piece?.model?.name.startsWith("King") &&
       piece.model.userData.color === color
   );
 

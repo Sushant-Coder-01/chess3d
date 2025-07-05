@@ -28,11 +28,12 @@ const getValidRookMoves = (currentPosition, modelUserData, boardState) => {
       const newPos = `${files[fileIndex]}${r}`;
       const occupant = boardState[newPos];
 
-      if (!occupant || occupant.color !== color) {
+      if (!occupant) {
         validMoves.push(newPos);
-      }
-
-      if (occupant && occupant.color === color) {
+      } else {
+        if (occupant.color !== color) {
+          validMoves.push(newPos);
+        }
         break;
       }
     }
