@@ -14,7 +14,6 @@ export function playMoveSound() {
 }
 
 function getYPositionForPiece(type) {
-  console.log(type);
   const pieceHeights = {
     Pawn: 0.7,
     Rook: 0.8,

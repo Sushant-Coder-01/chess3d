@@ -48,7 +48,6 @@ const loadModel = (modelName) => {
 const loadModels = async () => {
   try {
     await Promise.all(models.map((modelName) => loadModel(modelName)));
-    // console.log("All models loaded successfully!");
   } catch (error) {
     console.error("Error loading models:", error);
   }
