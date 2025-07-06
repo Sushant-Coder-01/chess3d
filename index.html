@@ -9,6 +9,26 @@
   </head>
   <body>
     <canvas class="chess3d"></canvas>
+
+    <div
+      id="check-toast"
+      style="
+        position: fixed;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #d32f2f;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: none;
+        font-weight: bold;
+        z-index: 1000;
+      "
+    >
+      ⚠️ Your king is in check!
+    </div>
+
     <script type="module" src="./main.js"></script>
   </body>
 </html>
