@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "start": "vite build & vite"
   },
   "repository": {
     "type": "git",

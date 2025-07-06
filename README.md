@@ -1,45 +1,74 @@
-![image](./src/assets/chess3d_pawn_icon.png)
-
 # ♟️ Chess3D
 
-A 3D chess game built with Three.js. Chess3D brings classic chess to life with smooth controls, modern graphics, and an interactive 3D board.
+**Chess3D** is a visually immersive 3D chess game built using **Three.js**. It brings classic chess to life with modern graphics, interactive controls, and realistic 3D models — all running right in your browser.
 
-**Chess3D** is a visually immersive 3D chess game built using **Three.js**. The project aims to bring the classic game of strategy to life with realistic 3D models, interactive tiles, and smooth camera controls — all within a browser.
+![Chess3D Icon](./src/assets/chess3d_pawn_icon.png)
 
 ---
 
 ## 🚀 Features
 
-- Fully 3D interactive chessboard built with **Three.js**
-- Clickable tiles with selection highlighting
-- Realistic 3D chess pieces loaded via **GLTF** models
-- Modular code structure for scalability
-- Responsive resizing and orbit controls
+- ✅ Fully interactive 3D chessboard using **Three.js**
+- ✅ Clickable tiles with dynamic highlights
+- ✅ Realistic 3D models of chess pieces via `.glb`/`.gltf`
+- ✅ Modular, scalable architecture
+- ✅ Smooth camera movement with orbit controls
+- ✅ Dynamic piece selection and move validation
+- ✅ Check alerts with visual feedback
 
----
+## ⚙️ Scripts
 
-## 📦 Project Structure
+In order to run the project and perform different tasks, you can use the following npm scripts:
+
+```json
+"scripts": {
+  "dev": "vite",                  # Starts the Vite development server
+  "build": "vite build",          # Builds the project for production
+  "start": "vite build & vite"    # Builds the project and starts the
+}
+```
+
+## 📂 Project Structure
 
 ```bash
 Root
-|__public
-|  |
-|  |__models           # Stores 3D models of chess pieces (e.g., .glb/.gltf)
-|__src/
-   ├── assets          # Stores images, icons, and other assets
-   ├── animate.js      # Handles animations (piece movements, etc.)
-   ├── board.js        # Generates and renders the chessboard grid
-   ├── controls.js     # Handles player interactions, such as piece movement
-   ├── scene.js        # Sets up scene, camera, renderer, and lighting
-   ├── tiles.js        # Handles tile grid and interaction logic
-   ├── pieces/         # Individual pieces (bishop, king, knight, etc.)
-   │   ├── bishop.js   # Loads and places the bishop piece
-   │   ├── king.js     # Loads and places the king piece
-   │   ├── knight.js   # Loads and places the knight piece
-   │   ├── pawn.js     # Loads and places the pawn piece
-   │   ├── queen.js    # Loads and places the queen piece
-   │   └── rook.js     # Loads and places the rook piece
-   ├── main.js         # Entry point, initializes all components
-   ├── index.css       # CSS styles for the game
-   └── index.html      # HTML file to host the game
+├── public/
+│   └── models/                # Stores 3D models of chess pieces (.glb/.gltf)
+├── src/
+│   ├── assets/                # Stores textures, icons, and other assets
+│   ├── animate.js             # Handles piece animations and transitions
+│   ├── board.js               # Creates and renders the chessboard grid
+│   ├── controls.js            # Manages piece dragging and player interaction
+│   ├── scene.js               # Sets up Three.js scene, camera, lights
+│   ├── tiles.js               # Handles tile logic and interaction
+│   ├── pieces/                # Loads and places individual chess pieces
+│   │   ├── bishop.js
+│   │   ├── king.js
+│   │   ├── knight.js
+│   │   ├── pawn.js
+│   │   ├── queen.js
+│   │   └── rook.js
+│   ├── selectModels/          # Handles selection, highlights, and movement
+│   │   ├── eventListeners.js
+│   │   ├── getTopModelParent.js
+│   │   ├── handleTileClick.js
+│   │   ├── highlight.js
+│   │   ├── highlightValidMoves.js
+│   │   ├── moveModels.js
+│   │   └── movePiece.js
+│   ├── validatePiecesMoves/   # Valid move logic for each piece type
+│   │   ├── bishop.js
+│   │   ├── index.js
+│   │   ├── king.js
+│   │   ├── knight.js
+│   │   ├── pawn.js
+│   │   ├── queen.js
+│   │   └── rook.js
+│   ├── boardState.js          # Stores current board state
+│   ├── constants.js           # Game constants (colors, piece names, etc.)
+│   ├── kingInCheck.js         # Logic to detect check/checkmate
+│   ├── lightning.js           # (Optional) Lightning effects or enhancements
+│   ├── main.js                # App entry point, initializes everything
+│   ├── index.css              # Styles for the entire game
+│   └── index.html             # Web entry point
 ```
