@@ -13,18 +13,20 @@ export function moveModelToValidTile(model, tile) {
 
     if (info?.isInCheck) {
       console.log(`${info.king.model.name} is in CHECK!`);
-      showCheckToast();
+      showCheckToast(info.king.model.name);
     } else {
       disableCheckToast();
     }
-
     clearPreviousHighlights();
   });
 }
 
-function showCheckToast() {
+function showCheckToast(kingName) {
   const toast = document.getElementById("check-toast");
   toast.style.display = "block";
+
+  // Update the content of the toast with the King's name
+  toast.innerHTML = `⚠️ ${kingName} is in CHECK!`;
 }
 
 function disableCheckToast() {

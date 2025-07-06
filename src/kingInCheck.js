@@ -34,7 +34,7 @@ export function isKingInCheck(color, boardState) {
   const kingPos = king.model.name.split("_")[1];
   for (const piece of Object.values(boardState)) {
     if (!piece.model) return;
-    if (piece?.model?.userData?.color !== color) {
+    if (piece?.model?.userData?.color) {
       const attackMoves = getValidMoves(piece.model, boardState);
       if (attackMoves?.includes(kingPos)) {
         return { isInCheck: true, king: king };
