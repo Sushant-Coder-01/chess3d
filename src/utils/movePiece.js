@@ -2,6 +2,11 @@ import gsap from "gsap";
 import { PIECES, SELECTMODEL } from "../constant";
 import { getBoardState } from "../boardState";
 
+const capturedPieces = {
+  [PIECES.white]: [],
+  [PIECES.black]: [],
+};
+
 export function playMoveSound() {
   const audio = new Audio("/sounds/preview.mp3");
   audio.volume = 1;
@@ -41,15 +46,32 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
       duration: 0.3,
       ease: "power2.inOut",
     });
+
+    // Add to captured pieces array
+    const color = target.model.userData.color;
+    capturedPieces[color].push(target.model);
+    const [type, pos] = target.model.name.split("_");
+    const index = capturedPieces[color].length - 1;
+
+    const col = index % 8; // 0–7
+    const row = Math.floor(index / 8); // 0 or 1
+
+    const baseX = color === PIECES.white ? 5 : -5;
+    const offsetX = baseX + row * (color === PIECES.white ? 1 : -1);
+
+    const offsetZ = -4 + col * 0.8;
+    const offsetY = getYPositionForPiece(type);
+
+    boardState[pos] = null;
+    target.model.userData.captured = true;
+
     gsap.to(target.model.position, {
-      x: target.model.userData.color === PIECES.white ? -5 : 5,
-      y: 0.7,
-      z: 0,
+      x: offsetX,
+      y: offsetY,
+      z: offsetZ,
       duration: 0.3,
       ease: "power2.inOut",
-      // onComplete: () => {
-      //   target.model.visible = false;
-      // },
+      onComplete: () => {},
     });
   };
 

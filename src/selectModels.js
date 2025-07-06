@@ -55,6 +55,8 @@ function handleTileClick(scene) {
 
       const model = getTopModelParent(obj);
 
+      if (model?.userData?.captured) return;
+
       const modelName = model.name;
       const isPiece =
         modelName.startsWith("Knight_") ||
