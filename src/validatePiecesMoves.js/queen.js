@@ -34,11 +34,14 @@ const getValidQueenMoves = (currentPosition, modelUserData, boardState) => {
 
       if (!occupant) {
         validMoves.push(newPos);
+      } else if (occupant.model?.userData?.captured) {
+        // Skip over captured pieces completely — treat as empty
+        continue;
+      } else if (occupant.color !== color) {
+        validMoves.push(newPos); // Valid capture
+        break; // Stop in that direction
       } else {
-        if (occupant.color !== color) {
-          validMoves.push(newPos);
-        }
-        break;
+        break; // Own piece blocks
       }
     }
   }

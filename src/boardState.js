@@ -12,9 +12,11 @@ export const getBoardState = () => {
   for (const piece of pieceGroup) {
     for (const tile in piece) {
       const model = piece[tile];
-      if (!model?.name) continue;
+
+      if (!model?.name || model.userData?.captured) continue;
 
       const [type, position] = model.name.split("_");
+
       const color =
         model.userData?.color ||
         (type === type.toUpperCase() ? "white" : "black");

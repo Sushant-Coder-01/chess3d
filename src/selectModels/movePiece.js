@@ -14,6 +14,7 @@ export function playMoveSound() {
 }
 
 function getYPositionForPiece(type) {
+  console.log(type);
   const pieceHeights = {
     Pawn: 0.7,
     Rook: 0.8,
@@ -22,57 +23,77 @@ function getYPositionForPiece(type) {
     Queen: 0.3,
     King: 0.8,
   };
-
   return pieceHeights[type] || 0.7;
+}
+
+function updateBoardState(model, tile, type) {
+  const boardState = getBoardState();
+  const oldPos = model.userData.currentPosition;
+  if (oldPos) boardState[oldPos] = null;
+
+  boardState[tile.name] = {
+    model,
+    color: model.userData.color,
+    type,
+  };
+}
+
+function knockoutAnimation(target, type, boardState) {
+  const color = target.model.userData.color;
+  const [targetType, pos] = target.model.name.split("_");
+
+  boardState[pos] = null;
+  target.model.userData.captured = true;
+
+  const targetPosition = target.model.userData.currentPosition;
+  if (targetPosition && boardState[targetPosition]?.model === target.model) {
+    boardState[targetPosition] = null;
+  }
+
+  capturedPieces[color].push(target.model);
+
+  const index = capturedPieces[color].length - 1;
+  const col = index % 8;
+  const row = Math.floor(index / 8);
+
+  const baseX = color === PIECES.white ? 5 : -5;
+  const offsetX = baseX + row * (color === PIECES.white ? 1 : -1);
+  const offsetZ = -4 + col * 0.8;
+  const offsetY = getYPositionForPiece(targetType);
+
+  gsap.to(target.model.position, {
+    x: offsetX,
+    y: offsetY,
+    z: offsetZ,
+    duration: 0.3,
+    ease: "power2.inOut",
+    onComplete: () => {},
+  });
 }
 
 export function movePieceToTile(model, tile, onComplete = () => {}) {
   if (!model || !tile) return;
 
+  const boardState = getBoardState();
   const tilePosition = tile.position.clone();
   const [type] = model.name.split("_");
-
   const newName = `${type}_${tile.name}`;
   const targetY = getYPositionForPiece(type);
   const originalColor = tile.originalColor;
-
-  const scene = model.parent;
-  const boardState = getBoardState();
   const capturedModel = boardState[tile.name];
 
-  const knockoutAnimation = (target) => {
-    gsap.to(target.model.rotation, {
-      z: 0,
-      duration: 0.3,
-      ease: "power2.inOut",
-    });
+  const afterMove = () => {
+    model.name = newName;
+    model.userData.currentPosition = tile.name;
+    updateBoardState(model, tile, type);
 
-    // Add to captured pieces array
-    const color = target.model.userData.color;
-    capturedPieces[color].push(target.model);
-    const [type, pos] = target.model.name.split("_");
-    const index = capturedPieces[color].length - 1;
+    playMoveSound();
+    tile.material.color.set(SELECTMODEL.color);
+    setTimeout(() => {
+      tile.material.color.set(originalColor);
+    }, 300);
 
-    const col = index % 8; // 0–7
-    const row = Math.floor(index / 8); // 0 or 1
-
-    const baseX = color === PIECES.white ? 5 : -5;
-    const offsetX = baseX + row * (color === PIECES.white ? 1 : -1);
-
-    const offsetZ = -4 + col * 0.8;
-    const offsetY = getYPositionForPiece(type);
-
-    boardState[pos] = null;
-    target.model.userData.captured = true;
-
-    gsap.to(target.model.position, {
-      x: offsetX,
-      y: offsetY,
-      z: offsetZ,
-      duration: 0.3,
-      ease: "power2.inOut",
-      onComplete: () => {},
-    });
+    onComplete();
   };
 
   if (type === "Knight") {
@@ -89,48 +110,22 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
           ease: "bounce2.out",
           onComplete: () => {
             if (capturedModel) {
-              knockoutAnimation(capturedModel);
+              knockoutAnimation(capturedModel, type, boardState);
             }
-
-            model.name = newName;
-            model.userData.currentPosition = tile.name;
-            playMoveSound();
-
-            tile.material.color.set(SELECTMODEL.color);
-            setTimeout(() => {
-              tile.material.color.set(originalColor);
-            }, 300);
-
-            onComplete();
+            afterMove();
           },
         });
       },
     });
-
     return;
   }
 
-  const stepTimeline = gsap.timeline({
-    onComplete: () => {
-      model.name = newName;
-      model.userData.currentPosition = tile.name;
-
-      playMoveSound();
-
-      tile.material.color.set(SELECTMODEL.color);
-      setTimeout(() => {
-        tile.material.color.set(originalColor);
-      }, 300);
-
-      onComplete();
-    },
-  });
+  const stepTimeline = gsap.timeline({ onComplete: afterMove });
 
   const startX = model.position.x;
   const startZ = model.position.z;
   const endX = tilePosition.x;
   const endZ = tilePosition.z;
-
   const dx = Math.abs(endX - startX);
   const dz = Math.abs(endZ - startZ);
   const steps = Math.max(dx, dz);
@@ -151,7 +146,7 @@ export function movePieceToTile(model, tile, onComplete = () => {}) {
       ease: "bounce.out",
       onComplete: () => {
         if (i === steps && capturedModel) {
-          knockoutAnimation(capturedModel);
+          knockoutAnimation(capturedModel, type, boardState);
         }
       },
     });

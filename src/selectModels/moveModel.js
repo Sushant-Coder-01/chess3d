@@ -1,4 +1,4 @@
-import { movePieceToTile } from "../utils/movePiece";
+import { movePieceToTile } from "./movePiece";
 import { getBoardState } from "../boardState";
 import { PIECES } from "../constant";
 import { clearPreviousHighlights } from "./highlight";
