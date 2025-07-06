@@ -5,7 +5,7 @@ import { animate } from "./src/animate.js";
 import loadModels from "./src/pieces/loadModels.js";
 import { lightning } from "./src/lightning.js";
 import { createTiles } from "./src/tiles.js";
-import { selectModels } from "./src/selectModels.js";
+import { selectModels } from "./src/selectModels/eventListeners.js";
 
 // lighning
 lightning();
@@ -20,7 +20,7 @@ createTiles(scene);
 loadModels();
 
 // select the model and tiles
-selectModels();
+selectModels(scene);
 
 // Setup controls
 setupControls(camera, canvas);
